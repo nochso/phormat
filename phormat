@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+set_error_handler(function ($severity, $message, $file, $line) {
+	if ($severity & error_reporting()) {
+		throw new ErrorException($message, 0, $severity, $file, $line);
+	}
+});
+
+if (file_exists($parent = __DIR__ . '/../../autoload.php')) {
+	require_once $parent;
+} else {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+
+$a = new \nochso\Phormat\CLI\Application();
+$a->run();
