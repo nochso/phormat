@@ -5,7 +5,8 @@ namespace nochso\Phormat\CLI;
 
 use Aura\Cli\Stdio;
 use Nette\Utils\Finder;
-use nochso\Diff\Diff;
+use nochso\Diff;
+use nochso\Diff\Format\Template;
 use nochso\Phormat\Formatter;
 
 class FormatJob
@@ -109,7 +110,7 @@ class FormatJob
 					$status = self::FILE_SAME;
 				}
 				if ($this->diff) {
-					$this->diffs[$file] = Diff::create($before, $after);
+					$this->diffs[$file] = Diff\Diff::create($before, $after);
 				}
 				if ($this->dryRun) {
 					if (!$this->diff) {
@@ -162,9 +163,9 @@ class FormatJob
 			return;
 		}
 		if ($this->stdio->getStdout()->isPosix()) {
-			$diffTemplate = new \nochso\Diff\Format\Template\POSIX();
+			$diffTemplate = new Template\POSIX();
 		} else {
-			$diffTemplate = new \nochso\Diff\Format\Template\Text();
+			$diffTemplate = new Template\Text();
 		}
 		foreach ($this->diffs as $file => $diff) {
 			$this->stdio->outln('<<ul>>'.$file . '<<reset>>:');

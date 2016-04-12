@@ -2,29 +2,22 @@
 
 namespace nochso\Phormat;
 
-use PhpParser\Node\Const_;
-use PhpParser\Node\Expr;
-use PhpParser\Node\Scalar;
+use PhpParser\Node;
 use PhpParser\Node\Stmt;
-use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassConst;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
-use PhpParser\Node\Stmt\Property;
 
 class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 {
 	const SEPARATE_TYPES = [
-		Const_::class,
-		ClassConst::class,
-		Property::class,
-		ClassMethod::class,
-		Function_::class,
+		Node\Const_::class,
+		Stmt\ClassConst::class,
+		Stmt\Property::class,
+		Stmt\ClassMethod::class,
+		Stmt\Function_::class,
 		Stmt\Use_::class,
 	];
 	const SEPARATE_IDENTICAL_TYPES = [
-		ClassMethod::class,
-		Function_::class,
+		Stmt\ClassMethod::class,
+		Stmt\Function_::class,
 	];
 
 	public function __construct(array $options = [])
@@ -36,7 +29,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	/**
 	 * Pretty prints a file of statements (includes the opening <?php tag if it is required).
 	 *
-	 * @param Node[] $stmts Array of statements
+	 * @param \PhpParser\Node[] $stmts Array of statements
 	 *
 	 * @return string Pretty printed statements
 	 */
@@ -56,7 +49,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	}
 
 
-	public function pStmt_Function(Function_ $node) {
+	public function pStmt_Function(Stmt\Function_ $node) {
 		return 'function ' . ($node->byRef ? '&' : '') . $node->name
 		. '(' . $this->pCommaSeparated($node->params) . ')'
 		. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
@@ -72,7 +65,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		}
 	}
 
-	public function pStmt_ClassMethod(ClassMethod $node) {
+	public function pStmt_ClassMethod(Stmt\ClassMethod $node) {
 		return $this->pModifiers($node->type)
 		. 'function ' . ($node->byRef ? '&' : '') . $node->name
 		. '(' . $this->pCommaSeparated($node->params) . ')'
@@ -82,7 +75,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 			: ';');
 	}
 
-	public function pExpr_Array(Expr\Array_ $node) {
+	public function pExpr_Array(Node\Expr\Array_ $node) {
 		// Force short array syntax
 		return '[' . $this->pCommaSeparated($node->items) . ']';
 	}
@@ -90,7 +83,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	/**
 	 * Pretty prints an array of nodes (statements) and indents them optionally.
 	 *
-	 * @param Node[] $nodes  Array of nodes
+	 * @param \PhpParser\Node[] $nodes  Array of nodes
 	 * @param bool   $indent Whether to indent the printed nodes
 	 *
 	 * @return string Pretty printed statements
@@ -111,7 +104,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 			$result .= "\n"
 				. $this->pComments($node->getAttribute('comments', array()))
 				. $this->p($node)
-				. ($node instanceof Expr ? ';' : '');
+				. ($node instanceof Node\Expr ? ';' : '');
 		}
 
 		if ($indent) {
@@ -121,7 +114,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		}
 	}
 
-	protected function pClassCommon(Class_ $node, $afterClassToken) {
+	protected function pClassCommon(Node\Stmt\Class_ $node, $afterClassToken) {
 		return $this->pModifiers($node->type)
 		. 'class' . $afterClassToken
 		. (null !== $node->extends ? ' extends ' . $this->p($node->extends) : '')
@@ -129,7 +122,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
-	public function pScalar_String(Scalar\String_ $node)
+	public function pScalar_String(Node\Scalar\String_ $node)
 	{
 		return $node->getAttribute('originalValue');
 	}
@@ -137,7 +130,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	protected function pEncapsList(array $encapsList, $quote) {
 		$return = '';
 		foreach ($encapsList as $element) {
-			if ($element instanceof Scalar\EncapsedStringPart) {
+			if ($element instanceof Node\Scalar\EncapsedStringPart) {
 				if ($element->getAttribute('startLine') === $element->getAttribute('endLine')) {
 					$return .= $this->escapeString($element->value, $quote);
 				} else {

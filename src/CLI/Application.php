@@ -44,6 +44,7 @@ class Application
 		$errors = array_merge($errors, $job->getErrors());
 		if (count($errors)) {
 			$this->showHelp();
+			/** @var \Exception $error */
 			foreach ($errors as $error) {
 				$this->stdio->errln('<<red>>'.$error->getMessage().'<<reset>>');
 			}
