@@ -1,0 +1,1 @@
+<?php class X { private $prop = array(); public function func() {return 0;}}
