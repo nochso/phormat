@@ -11,7 +11,9 @@ class Formatter
 		$parser = $this->getParser();
 		$statements = $parser->parse($input);
 		$printer = new NodePrinter();
-		return $printer->prettyPrintFile($statements);
+		$pretty = $printer->prettyPrintFile($statements);
+		$wrapper = new LineWrapper();
+		return $wrapper->wrap($pretty);
 	}
 
 	private function getParser()
