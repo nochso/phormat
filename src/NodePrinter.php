@@ -20,6 +20,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		Property::class,
 		ClassMethod::class,
 		Function_::class,
+		Stmt\Use_::class,
 	];
 	const SEPARATE_IDENTICAL_TYPES = [
 		ClassMethod::class,
