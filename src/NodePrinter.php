@@ -21,6 +21,10 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		ClassMethod::class,
 		Function_::class,
 	];
+	const SEPARATE_IDENTICAL_TYPES = [
+		ClassMethod::class,
+		Function_::class,
+	];
 
 	public function __construct(array $options = [])
 	{
@@ -100,6 +104,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 					$result.="\n";
 				}
 				$prevContext = $newContext;
+			} elseif (in_array($newContext, self::SEPARATE_IDENTICAL_TYPES)) {
+				$result .= "\n";
 			}
 			$result .= "\n"
 				. $this->pComments($node->getAttribute('comments', array()))
@@ -115,7 +121,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	}
 
 	protected function pClassCommon(Class_ $node, $afterClassToken) {
-		return "\n".$this->pModifiers($node->type)
+		return $this->pModifiers($node->type)
 		. 'class' . $afterClassToken
 		. (null !== $node->extends ? ' extends ' . $this->p($node->extends) : '')
 		. (!empty($node->implements) ? ' implements ' . $this->pCommaSeparated($node->implements) : '')
