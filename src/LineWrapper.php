@@ -9,7 +9,7 @@ class LineWrapper
 {
 	const LIMIT = 120;
 	const TOKENS = [
-		',' => true,
+//		',' => true,
 		'.' => true,
 		T_BOOLEAN_AND => true,
 		T_BOOLEAN_OR => true,
@@ -168,9 +168,9 @@ class LineWrapper
 			$out .= $frag;
 		}
 		if ($this->lineLen($out) > self::LIMIT) {
-			if (isset($wrapTokenCount['.'])) {
-				return '.';
-			}
+//			if (isset($wrapTokenCount['.'])) {
+//				return '.';
+//			}
 			arsort($wrapTokenCount);
 			reset($wrapTokenCount);
 			return key($wrapTokenCount);
