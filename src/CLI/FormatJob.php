@@ -9,23 +9,26 @@ use nochso\Diff;
 use nochso\Diff\Format\Template;
 use nochso\Omni\Format\Quantity;
 use nochso\Phormat\Formatter;
+use nochso\Phormat\TemplateSkippedException;
 
 class FormatJob
 {
 	const FILE_SAME = 0;
 	const FILE_CHANGED = 1;
 	const FILE_ERROR = 2;
-	
+	const FILE_TEMPLATE_SKIPPED = 3;
+
 	const FILE_DESCRIPTIONS = [
 		self::FILE_SAME => 'Already conforms to phormat',
 		self::FILE_CHANGED => 'Different to phormat',
 		self::FILE_ERROR => 'Parse error',
+		self::FILE_TEMPLATE_SKIPPED => 'Skipped native templates',
 	];
-	
 	const FILE_STYLES = [
 		self::FILE_SAME => 'green',
 		self::FILE_CHANGED => 'yellow',
 		self::FILE_ERROR => 'red',
+		self::FILE_TEMPLATE_SKIPPED => 'dim',
 	];
 
 	private $diff = false;
@@ -123,6 +126,8 @@ class FormatJob
 				if ($this->print) {
 					$this->outputs[$file] = $after;
 				}
+			} catch (TemplateSkippedException $e) {
+				$status = self::FILE_TEMPLATE_SKIPPED;
 			} catch (\Exception $e) {
 				$status = self::FILE_ERROR;
 			}
