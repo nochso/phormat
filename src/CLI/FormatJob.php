@@ -31,6 +31,7 @@ class FormatJob
 		self::FILE_TEMPLATE_SKIPPED => 'dim',
 	];
 
+	private $output = true;
 	private $diff = false;
 	private $print = false;
 	private $summary = false;
@@ -120,7 +121,7 @@ class FormatJob
 				if ($this->diff) {
 					$this->diffs[$file] = Diff\Diff::create($before, $after);
 				}
-				if (!$this->diff && !$this->print) {
+				if ($this->output && !$this->diff && !$this->print) {
 					file_put_contents($file, $after);
 				}
 				if ($this->print) {
@@ -151,6 +152,15 @@ class FormatJob
 	public function disablePrint()
 	{
 		$this->print=false;
+	}
+
+	public function enableOutput()
+	{
+		$this->output = true;
+	}
+	public function disableOutput()
+	{
+		$this->output = false;
 	}
 
 	private function showProgress($key)

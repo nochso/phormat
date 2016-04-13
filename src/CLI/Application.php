@@ -60,6 +60,9 @@ class Application
 		if ($this->opt->get('--print')) {
 			$job->enablePrint();
 		}
+		if ($this->opt->get('--no-output')) {
+			$job->disableOutput();
+		}
 		$job->run();
 		exit(Status::SUCCESS);
 	}
@@ -79,6 +82,7 @@ class Application
 			'd,diff' => 'Display differences instead of rewriting files.',
 			's,summary' => "Show summary of file status.",
 			'p,print' => 'Display full output instead of rewriting files.',
+			'n,no-output' => 'Do not overwrite files.',
 			'#paths' => 'One or many paths to files or directories.',
 		];
 	}
