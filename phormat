@@ -12,5 +12,5 @@ if (file_exists($parent = __DIR__ . '/../../autoload.php')) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
-$a = new \nochso\Phormat\CLI\Application();
+$a = new \nochso\Phormat\CLI\Application(new \nochso\Omni\VcsVersionInfo('phormat', '0.1.0', __DIR__));
 $a->run();

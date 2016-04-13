@@ -8,6 +8,7 @@ use Aura\Cli\Help;
 use Aura\Cli\Status;
 use Aura\Cli\Stdio;
 use Aura\Cli\Stdio\Formatter;
+use nochso\Omni\VersionInfo;
 
 class Application
 {
@@ -19,9 +20,14 @@ class Application
 	 * @var \Aura\Cli\Stdio
 	 */
 	private $stdio;
+	/**
+	 * @var VersionInfo
+	 */
+	private $version;
 
-	public function __construct()
+	public function __construct($version)
 	{
+		$this->version = $version;
 		$cliFactory = new CliFactory();
 		$this->context = $cliFactory->newContext($GLOBALS);
 		$this->stdio = new Stdio(
@@ -35,6 +41,7 @@ class Application
 
 	public function run()
 	{
+		$this->showVersion();
 		$errors = $this->opt->getErrors();
 		$paths = array_filter($this->opt->get(), function ($key) {
 			return is_int($key) && $key > 0;
@@ -85,5 +92,11 @@ class Application
 			'n,no-output' => 'Do not overwrite files.',
 			'#paths' => 'One or many paths to files or directories.',
 		];
+	}
+
+	private function showVersion()
+	{
+		$out = sprintf('<<green>>%s<<reset>> <<yellow>>%s<<reset>>', $this->version->getName(), $this->version->getVersion());
+		$this->stdio->outln($out);
 	}
 }
