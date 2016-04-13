@@ -6,19 +6,26 @@ use PhpParser\ParserFactory;
 
 class Formatter
 {
-	public function format($input)
+	/**
+	 * @var \PhpParser\Lexer
+	 */
+	private $lexer;
+	/**
+	 * @var \PhpParser\Parser
+	 */
+	private $parser;
+
+	public function __construct()
 	{
-		$parser = $this->getParser();
-		$statements = $parser->parse($input);
-		$printer = new NodePrinter();
-		$pretty = $printer->prettyPrintFile($statements);
-		return $pretty;
+		$this->printer = new NodePrinter();
+		$this->lexer = new KeepOriginalStringLexer();
+		$factory = new ParserFactory();
+		$this->parser = $factory->create(ParserFactory::PREFER_PHP7, $this->lexer);
 	}
 
-	private function getParser()
+	public function format($input)
 	{
-		$factory = new ParserFactory();
-		$lexer = new KeepOriginalStringLexer();
-		return $factory->create(ParserFactory::PREFER_PHP7, $lexer);
+		$statements = $this->parser->parse($input);
+		return $this->printer->prettyPrintFile($statements);
 	}
 }
