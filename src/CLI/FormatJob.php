@@ -68,6 +68,9 @@ class FormatJob
 
 	public function getErrors()
 	{
+		if (!count($this->files)) {
+			$this->errors[] = new \RuntimeException('No files specified or found.');
+		}
 		return $this->errors;
 	}
 	
