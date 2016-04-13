@@ -42,6 +42,10 @@ class Application
 	public function run()
 	{
 		$this->showVersion();
+		if ($this->opt->get('--help')) {
+			$this->showHelp();
+			return;
+		}
 		$errors = $this->opt->getErrors();
 		$paths = array_filter($this->opt->get(), function ($key) {
 			return is_int($key) && $key > 0;
@@ -79,17 +83,22 @@ class Application
 		$help = new Help(new OptionFactory());
 		$help->setOptions($this->getOptions());
 		$help->setSummary('Format PHP source code by a single convention.');
-		$help->setUsage('[options] -- <paths ...>');
+		$help->setUsage(['[options] <path>', '[options] <path1> <path2> ...']);
+		$help->setDescr(<<<TAG
+By default PHP files from the specified paths will be overwritten.
+TAG
+);
 		$this->stdio->outln($help->getHelp('phormat'));
 	}
 
 	private function getOptions()
 	{
 		return [
-			'd,diff' => 'Display differences instead of rewriting files.',
-			's,summary' => "Show summary of file status.",
-			'p,print' => 'Display full output instead of rewriting files.',
-			'n,no-output' => 'Do not overwrite files.',
+			'd,diff' => 'Preview diff of formatted code. Implies --no-output.',
+			's,summary' => "Show a status summary for each file.",
+			'p,print' => 'Print full output of formatted code. Implies --no-output.',
+			'n,no-output' => 'Do not overwrite source files.',
+			'h,help' => 'Show this help.',
 			'#paths' => 'One or many paths to files or directories.',
 		];
 	}
