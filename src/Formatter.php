@@ -2,6 +2,7 @@
 
 namespace nochso\Phormat;
 
+use nochso\Phormat\Parser\Lexer;
 use PhpParser\ParserFactory;
 
 class Formatter

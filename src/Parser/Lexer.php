@@ -1,6 +1,6 @@
 <?php
 
-namespace nochso\Phormat;
+namespace nochso\Phormat\Parser;
 
 use PhpParser\Lexer\Emulative;
 use PhpParser\Parser\Tokens;
