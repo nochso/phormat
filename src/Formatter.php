@@ -13,8 +13,6 @@ class Formatter
 		$printer = new NodePrinter();
 		$pretty = $printer->prettyPrintFile($statements);
 		return $pretty;
-//		$wrapper = new LineWrapper();
-//		return $wrapper->wrap($pretty);
 	}
 
 	private function getParser()
