@@ -12,19 +12,19 @@ use nochso\Phormat\Formatter;
 
 class FormatJob
 {
-	const FILE_SAME = '.';
-	const FILE_CHANGED = 'C';
-	const FILE_ERROR = 'E';
+	const FILE_SAME = 0;
+	const FILE_CHANGED = 1;
+	const FILE_ERROR = 2;
 	
 	const FILE_DESCRIPTIONS = [
-		self::FILE_SAME => 'Nothing changed',
-		self::FILE_CHANGED => 'Formatting changed',
+		self::FILE_SAME => 'Already conforms to phormat',
+		self::FILE_CHANGED => 'Different to phormat',
 		self::FILE_ERROR => 'Parse error',
 	];
 	
 	const FILE_STYLES = [
-		self::FILE_SAME => 'yellow',
-		self::FILE_CHANGED => 'green',
+		self::FILE_SAME => 'green',
+		self::FILE_CHANGED => 'yellow',
 		self::FILE_ERROR => 'red',
 	];
 
@@ -162,13 +162,13 @@ class FormatJob
 		}
 		foreach ($this->statuses as $status => $files) {
 			$message = sprintf(
-				'<<%s>>%s in<<reset>>',
+				'<<%s>>%s<<reset>>',
 				self::FILE_STYLES[$status],
 				self::FILE_DESCRIPTIONS[$status]
 			);
 			$this->stdio->outln($message);
 			foreach ($files as $file) {
-				$this->stdio->outln('- ' . $file);
+				$this->stdio->outln($file);
 			}
 		}
 	}
