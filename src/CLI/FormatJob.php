@@ -132,9 +132,7 @@ class FormatJob
 			} catch (\Exception $e) {
 				$status = self::FILE_ERROR;
 			}
-			if ($this->summary) {
-				$this->statuses[$status][] = $file;
-			}
+			$this->statuses[$status][] = $file;
 			$this->showProgress($key);
 		}
 		$this->stdio->out("    \r");
@@ -142,6 +140,7 @@ class FormatJob
 		$this->showDiffs();
 		$this->showOutput();
 		$this->showFileSummary();
+		$this->showSummary();
 	}
 
 	public function enablePrint()
@@ -215,6 +214,14 @@ class FormatJob
 		foreach ($this->outputs as $file => $output) {
 			$this->stdio->outln('<<ul>>'.$file . '<<reset>>:');
 			$this->stdio->outln($output);
+		}
+	}
+
+	private function showSummary()
+	{
+		foreach ($this->statuses as $status => $files) {
+			$message = sprintf('<<%s>>%s<<reset>>: %d ', self::FILE_STYLES[$status], self::FILE_DESCRIPTIONS[$status], count($files));
+			$this->stdio->outln($message);
 		}
 	}
 }
