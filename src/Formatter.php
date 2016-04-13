@@ -18,7 +18,7 @@ class Formatter
 	public function __construct()
 	{
 		$this->printer = new NodePrinter();
-		$this->lexer = new KeepOriginalStringLexer();
+		$this->lexer = new Lexer();
 		$factory = new ParserFactory();
 		$this->parser = $factory->create(ParserFactory::PREFER_PHP7, $this->lexer);
 	}

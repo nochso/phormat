@@ -5,7 +5,7 @@ namespace nochso\Phormat;
 use PhpParser\Lexer\Emulative;
 use PhpParser\Parser\Tokens;
 
-class KeepOriginalStringLexer extends Emulative
+class Lexer extends Emulative
 {
 	public function getNextToken(&$value = null, &$startAttributes = null, &$endAttributes = null) {
 		$tokenId = parent::getNextToken($value, $startAttributes, $endAttributes);
