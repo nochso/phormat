@@ -140,7 +140,7 @@ class FormatJob
 
 		$this->showDiffs();
 		$this->showOutput();
-		$this->showSummary();
+		$this->showFileSummary();
 	}
 
 	public function enablePrint()
@@ -160,7 +160,7 @@ class FormatJob
 		$this->stdio->out($percentage . "%\r");
 	}
 
-	private function showSummary()
+	private function showFileSummary()
 	{
 		if (!$this->summary) {
 			return;
