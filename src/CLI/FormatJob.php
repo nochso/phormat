@@ -7,6 +7,7 @@ use Aura\Cli\Stdio;
 use Nette\Utils\Finder;
 use nochso\Diff;
 use nochso\Diff\Format\Template;
+use nochso\Omni\Format\Quantity;
 use nochso\Phormat\Formatter;
 
 class FormatJob
@@ -28,7 +29,8 @@ class FormatJob
 	];
 
 	private $diff = false;
-	private $dryRun = false;
+	private $print = false;
+	private $summary = false;
 	private $files = [];
 	private $errors = [];
 	/**
@@ -86,19 +88,19 @@ class FormatJob
 		$this->diff=false;
 	}
 
-	public function enableDryRun()
+	public function enableSummary()
 	{
-		$this->dryRun=true;
+		$this->summary =true;
 	}
 
-	public function disableDryRun()
+	public function disableSummary()
 	{
-		$this->dryRun=false;
+		$this->summary =false;
 	}
 
 	public function run()
 	{
-		$this->stdio->outln(sprintf('Starting to format %d files.', count($this->files)));
+		$this->stdio->outln(sprintf('Found %d file%s to format.', count($this->files), Quantity::format('(s)', count($this->files))));
 		$this->stdio->outln();
 		$formatter = new Formatter();
 		foreach ($this->files as $key => $file) {
@@ -112,28 +114,39 @@ class FormatJob
 				if ($this->diff) {
 					$this->diffs[$file] = Diff\Diff::create($before, $after);
 				}
-				if ($this->dryRun) {
-					if (!$this->diff) {
-						$this->outputs[$file] = $after;
-					}
-				} else {
+				if (!$this->diff && !$this->print) {
 					file_put_contents($file, $after);
+				}
+				if ($this->print) {
+					$this->outputs[$file] = $after;
 				}
 			} catch (\Exception $e) {
 				$status = self::FILE_ERROR;
 			}
-			$this->showProgress($key, $file, $status);
+			if ($this->summary) {
+				$this->statuses[$status][] = $file;
+			}
+			$this->showProgress($key);
 		}
-		$this->stdio->outln();
+		$this->stdio->out("    \r");
 
 		$this->showDiffs();
-		$this->showOutputs();
+		$this->showOutput();
 		$this->showSummary();
 	}
 
-	private function showProgress($key, $file, $type)
+	public function enablePrint()
 	{
-		$this->statuses[$type][] = $file;
+		$this->print = true;
+	}
+
+	public function disablePrint()
+	{
+		$this->print=false;
+	}
+
+	private function showProgress($key)
+	{
 		$percentage = round(($key + 1) / count($this->files) * 100);
 		$percentage = str_pad($percentage, 3, ' ', STR_PAD_LEFT) ;
 		$this->stdio->out($percentage . "%\r");
@@ -141,6 +154,9 @@ class FormatJob
 
 	private function showSummary()
 	{
+		if (!$this->summary) {
+			return;
+		}
 		foreach ($this->statuses as $status => $files) {
 			$message = sprintf(
 				'<<%s>>%s in<<reset>>',
@@ -173,9 +189,9 @@ class FormatJob
 		}
 	}
 
-	private function showOutputs()
+	private function showOutput()
 	{
-		if (!$this->dryRun) {
+		if (!$this->print) {
 			return;
 		}
 		foreach ($this->outputs as $file => $output) {

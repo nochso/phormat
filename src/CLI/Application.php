@@ -54,8 +54,11 @@ class Application
 		if ($this->opt->get('--diff')) {
 			$job->enableDiff();
 		}
-		if ($this->opt->get('--dry-run')) {
-			$job->enableDryRun();
+		if ($this->opt->get('--summary')) {
+			$job->enableSummary();
+		}
+		if ($this->opt->get('--print')) {
+			$job->enablePrint();
 		}
 		$job->run();
 		exit(Status::SUCCESS);
@@ -73,8 +76,9 @@ class Application
 	private function getOptions()
 	{
 		return [
-			'diff' => 'Show differences between original and formatted code.',
-			'dry-run' => 'Show output instead of writing to file.',
+			'd,diff' => 'Display differences instead of rewriting files.',
+			's,summary' => "Show summary of file status.",
+			'p,print' => 'Display full output instead of rewriting files.',
 			'#paths' => 'One or many paths to files or directories.',
 		];
 	}
