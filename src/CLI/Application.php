@@ -1,5 +1,4 @@
 <?php
-
 namespace nochso\Phormat\CLI;
 
 use Aura\Cli\CliFactory;
@@ -10,8 +9,7 @@ use Aura\Cli\Stdio;
 use Aura\Cli\Stdio\Formatter;
 use nochso\Omni\VersionInfo;
 
-class Application
-{
+class Application {
 	/**
 	 * @var \Aura\Cli\Context
 	 */
@@ -25,8 +23,7 @@ class Application
 	 */
 	private $version;
 
-	public function __construct($version)
-	{
+	public function __construct($version) {
 		$this->version = $version;
 		$cliFactory = new CliFactory();
 		$this->context = $cliFactory->newContext($GLOBALS);
@@ -34,22 +31,25 @@ class Application
 			new Handle('php://stdin', 'r'),
 			new Handle('php://stdout', 'w+'),
 			new Handle('php://stderr', 'w+'),
-			new Formatter
+			new Formatter()
 		);
 		$this->opt = $this->context->getopt($this->getOptions());
 	}
 
-	public function run()
-	{
+	public function run() {
 		$this->showVersion();
 		if ($this->opt->get('--help')) {
 			$this->showHelp();
 			return;
 		}
 		$errors = $this->opt->getErrors();
-		$paths = array_filter($this->opt->get(), function ($key) {
-			return is_int($key) && $key > 0;
-		}, ARRAY_FILTER_USE_KEY);
+		$paths = array_filter(
+			$this->opt->get(),
+			function ($key) {
+				return is_int($key) && $key > 0;
+			},
+			ARRAY_FILTER_USE_KEY
+		);
 		$job = new FormatJob($this->stdio);
 		$job->addPaths($paths);
 		$errors = array_merge($errors, $job->getErrors());
@@ -57,11 +57,10 @@ class Application
 			$this->showHelp();
 			/** @var \Exception $error */
 			foreach ($errors as $error) {
-				$this->stdio->errln('<<red>>'.$error->getMessage().'<<reset>>');
+				$this->stdio->errln('<<red>>' . $error->getMessage() . '<<reset>>');
 			}
 			exit(Status::USAGE);
 		}
-		
 		if ($this->opt->get('--diff')) {
 			$job->enableDiff();
 		}
@@ -78,8 +77,7 @@ class Application
 		exit(Status::SUCCESS);
 	}
 
-	private function showHelp()
-	{
+	private function showHelp() {
 		$help = new Help(new OptionFactory());
 		$help->setOptions($this->getOptions());
 		$help->setSummary('Format PHP source code by a single convention.');
@@ -91,8 +89,7 @@ TAG
 		$this->stdio->outln($help->getHelp('phormat'));
 	}
 
-	private function getOptions()
-	{
+	private function getOptions() {
 		return [
 			'd,diff' => 'Preview diff of formatted code. Implies --no-output.',
 			's,summary' => "Show a status summary for each file.",
@@ -103,9 +100,12 @@ TAG
 		];
 	}
 
-	private function showVersion()
-	{
-		$out = sprintf('<<green>>%s<<reset>> <<yellow>>%s<<reset>>', $this->version->getName(), $this->version->getVersion());
+	private function showVersion() {
+		$out = sprintf(
+			'<<green>>%s<<reset>> <<yellow>>%s<<reset>>',
+			$this->version->getName(),
+			$this->version->getVersion()
+		);
 		$this->stdio->outln($out);
 	}
 }

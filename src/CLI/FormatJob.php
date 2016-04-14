@@ -1,7 +1,5 @@
 <?php
-
 namespace nochso\Phormat\CLI;
-
 
 use Aura\Cli\Stdio;
 use Nette\Utils\Finder;
@@ -12,8 +10,7 @@ use nochso\Omni\Format\Quantity;
 use nochso\Phormat\Formatter;
 use nochso\Phormat\TemplateSkippedException;
 
-class FormatJob
-{
+class FormatJob {
 	private $output = true;
 	private $diff = false;
 	private $print = false;
@@ -29,14 +26,11 @@ class FormatJob
 	 */
 	private $stdio;
 
-	public function __construct(Stdio $stdio)
-	{
+	public function __construct(Stdio $stdio) {
 		$this->stdio = $stdio;
 	}
 
-
-	public function addPath($path)
-	{
+	public function addPath($path) {
 		if (!is_dir($path)) {
 			$this->files[] = new FormatJobFile($path);
 			return;
@@ -49,43 +43,36 @@ class FormatJob
 		}
 	}
 
-	public function getErrors()
-	{
+	public function getErrors() {
 		if (!count($this->files)) {
 			$this->errors[] = new \RuntimeException('No files specified or found.');
 		}
 		return $this->errors;
 	}
-	
-	public function addPaths($paths)
-	{
+
+	public function addPaths($paths) {
 		foreach ($paths as $path) {
 			$this->addPath($path);
 		}
 	}
 
-	public function enableDiff()
-	{
-		$this->diff=true;
+	public function enableDiff() {
+		$this->diff = true;
 	}
 
-	public function disableDiff()
-	{
-		$this->diff=false;
+	public function disableDiff() {
+		$this->diff = false;
 	}
 
-	public function enableSummary()
-	{
-		$this->summary =true;
+	public function enableSummary() {
+		$this->summary = true;
 	}
 
-	public function disableSummary()
-	{
-		$this->summary =false;
+	public function disableSummary() {
+		$this->summary = false;
 	}
 
-	public function run()
-	{
+	public function run() {
 		$this->progressStatusMap = array_fill_keys(array_keys(FormatJobFile::STATUS_STYLES), 0);
 		$startTime = microtime(true);
 		$this->stdio->outln();
@@ -112,56 +99,56 @@ class FormatJob
 			$this->showProgress($key, $file);
 		}
 		$duration = microtime(true) - $startTime;
-		$this->stdio->out("\r".str_repeat(' ', 80)."\r");
+		$this->stdio->out("\r" . str_repeat(' ', 80) . "\r");
 		$this->showDiffs();
 		$this->showOutput();
 		$this->showFileSummary();
 		$this->showSummary($duration);
 	}
 
-	public function enablePrint()
-	{
+	public function enablePrint() {
 		$this->print = true;
 	}
 
-	public function disablePrint()
-	{
-		$this->print=false;
+	public function disablePrint() {
+		$this->print = false;
 	}
 
-	public function enableOutput()
-	{
+	public function enableOutput() {
 		$this->output = true;
 	}
-	public function disableOutput()
-	{
+
+	public function disableOutput() {
 		$this->output = false;
 	}
 
-	private function showProgress($key, FormatJobFile $file)
-	{
+	private function showProgress($key, FormatJobFile $file) {
 		$this->progressStatusMap[$file->getStatus()]++;
-		if (($key+1) % 5) {
+		if (($key + 1) % 5) {
 			return;
 		}
 		$count = count($this->files);
-		$formatCount = str_pad(number_format($key+1), strlen(number_format($count)), ' ', STR_PAD_LEFT).'/'.number_format($count);
+		$formatCount = str_pad(number_format($key + 1), strlen(number_format($count)), ' ', STR_PAD_LEFT) . '/' . number_format($count);
 		$bar = '';
 		$sumChars = 0;
 		foreach ($this->progressStatusMap as $status => $statusCount) {
 			$chars = floor($statusCount / $count * 100 / 2);
-			$sumChars+=$chars;
-			$bar .= sprintf('<<%s>>%s<<reset>>', FormatJobFile::STATUS_STYLES[$status], str_repeat('|', $chars), str_repeat(' ', 50-$chars));
+			$sumChars += $chars;
+			$bar .= sprintf(
+				'<<%s>>%s<<reset>>',
+				FormatJobFile::STATUS_STYLES[$status],
+				str_repeat('|', $chars),
+				str_repeat(' ', 50 - $chars)
+			);
 		}
-		$bar .= str_repeat(' ', 50-$sumChars);
-		$bar = '['.$bar.']';
+		$bar .= str_repeat(' ', 50 - $sumChars);
+		$bar = '[' . $bar . ']';
 		$percentage = ($key + 1) / $count * 100;
-		$paddedPercentage = str_pad(round($percentage), 3, ' ', STR_PAD_LEFT) ;
-		$this->stdio->out("\r" . $paddedPercentage . "% $bar $formatCount");
+		$paddedPercentage = str_pad(round($percentage), 3, ' ', STR_PAD_LEFT);
+		$this->stdio->out("\r" . $paddedPercentage . "% {$bar} {$formatCount}");
 	}
 
-	private function showFileSummary()
-	{
+	private function showFileSummary() {
 		if (!$this->summary) {
 			return;
 		}
@@ -179,8 +166,7 @@ class FormatJob
 	/**
 	 * @return int|string
 	 */
-	private function showDiffs()
-	{
+	private function showDiffs() {
 		if ($this->stdio->getStdout()->isPosix()) {
 			$diffTemplate = new Template\POSIX();
 		} else {
@@ -188,14 +174,13 @@ class FormatJob
 		}
 		foreach ($this->files as $file) {
 			if ($file->hasDiff()) {
-				$this->stdio->outln('<<ul>>'.$file->getPath() . '<<reset>>:');
+				$this->stdio->outln('<<ul>>' . $file->getPath() . '<<reset>>:');
 				$this->stdio->outln($diffTemplate->format($file->getDiff()));
 			}
 		}
 	}
 
-	private function showOutput()
-	{
+	private function showOutput() {
 		foreach ($this->files as $file) {
 			if ($file->hasOutput()) {
 				$this->stdio->outln('<<ul>>' . $file->getPath() . '<<reset>>:');
@@ -207,8 +192,7 @@ class FormatJob
 	/**
 	 * @return FormatJobFile[][]
 	 */
-	public function getFilesGroupedByStatus()
-	{
+	public function getFilesGroupedByStatus() {
 		$map = [];
 		foreach ($this->files as $file) {
 			$map[$file->getStatus()][] = $file;
@@ -217,20 +201,26 @@ class FormatJob
 		return $map;
 	}
 
-	private function showSummary($microseconds)
-	{
+	private function showSummary($microseconds) {
 		$statusFileMap = $this->getFilesGroupedByStatus();
 		$changedCount = 0;
 		if (isset($statusFileMap[FormatJobFile::STATUS_CHANGED])) {
 			$changedCount = count($statusFileMap[FormatJobFile::STATUS_CHANGED]);
 		}
-		$duration = Duration::create()->format((int)$microseconds) . ' ';
+		$duration = Duration::create()->format((int) $microseconds) . ' ';
 		if ($microseconds < 10) {
 			if ($microseconds < 1) {
 				$duration = '';
 			}
-			$duration .= round(($microseconds - (int)$microseconds) * 1000) .'ms';
+			$duration .= round(($microseconds - (int) $microseconds) * 1000) . 'ms';
 		}
-		$this->stdio->outln(sprintf('<<green>>Formatted %d file%s in %s.<<reset>>', $changedCount, Quantity::format('(s)', $changedCount), $duration));
+		$this->stdio->outln(
+			sprintf(
+				'<<green>>Formatted %d file%s in %s.<<reset>>',
+				$changedCount,
+				Quantity::format('(s)', $changedCount),
+				$duration
+			)
+		);
 	}
 }

@@ -8,7 +8,7 @@ use PhpParser\ParserFactory;
 
 /**
  * Formatter takes PHP code as a string and formats it the phormat way.
- * 
+ *
  * @see \nochso\Phormat\Parser\NodePrinter
  */
 class Formatter {
