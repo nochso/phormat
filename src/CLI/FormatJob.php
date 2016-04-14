@@ -7,46 +7,26 @@ use Aura\Cli\Stdio;
 use Nette\Utils\Finder;
 use nochso\Diff;
 use nochso\Diff\Format\Template;
+use nochso\Omni\Format\Duration;
 use nochso\Omni\Format\Quantity;
 use nochso\Phormat\Formatter;
 use nochso\Phormat\TemplateSkippedException;
 
 class FormatJob
 {
-	const FILE_SAME = 0;
-	const FILE_CHANGED = 1;
-	const FILE_ERROR = 2;
-	const FILE_TEMPLATE_SKIPPED = 3;
-
-	const FILE_DESCRIPTIONS = [
-		self::FILE_SAME => 'Already conforms to phormat',
-		self::FILE_CHANGED => 'Different to phormat',
-		self::FILE_ERROR => 'Parse error',
-		self::FILE_TEMPLATE_SKIPPED => 'Skipped native templates',
-	];
-	const FILE_STYLES = [
-		self::FILE_SAME => 'green',
-		self::FILE_CHANGED => 'yellow',
-		self::FILE_ERROR => 'red',
-		self::FILE_TEMPLATE_SKIPPED => 'dim',
-	];
-
 	private $output = true;
 	private $diff = false;
 	private $print = false;
 	private $summary = false;
+	/**
+	 * @var \nochso\Phormat\CLI\FormatJobFile[]
+	 */
 	private $files = [];
 	private $errors = [];
 	/**
 	 * @var \Aura\Cli\Stdio
 	 */
 	private $stdio;
-	/**
-	 * @var \nochso\Diff\Diff[]
-	 */
-	private $diffs = [];
-	private $outputs = [];
-	private $statuses = [];
 
 	public function __construct(Stdio $stdio)
 	{
@@ -56,18 +36,16 @@ class FormatJob
 
 	public function addPath($path)
 	{
-		if (is_file($path)) {
-			$this->files[] = $path;
+		if (!is_dir($path)) {
+			$this->files[] = new FormatJobFile($path);
 			return;
 		}
 		if (is_dir($path)) {
 			/** @var \SplFileInfo $file */
 			foreach (Finder::findFiles('*.php')->from($path) as $file) {
-				$this->files[] = $file->getPathname();
+				$this->addPath($file);
 			}
-			return;
 		}
-		$this->errors[] = new \InvalidArgumentException(sprintf("File or directory '%s' does not exist.", $path)); 
 	}
 
 	public function getErrors()
@@ -107,40 +85,37 @@ class FormatJob
 
 	public function run()
 	{
+		$startTime = microtime(true);
 		$this->stdio->outln(sprintf('Found %d file%s to format.', count($this->files), Quantity::format('(s)', count($this->files))));
 		$this->stdio->outln();
 		$formatter = new Formatter();
 		foreach ($this->files as $key => $file) {
+			if ($file->getStatus() === FormatJobFile::STATUS_MISSING) {
+				continue;
+			}
 			try {
-				$before = file_get_contents($file);
+				$before = file_get_contents($file->getPath());
 				$after = $formatter->format($before);
-				$status = self::FILE_CHANGED;
-				if ($before === $after) {
-					$status = self::FILE_SAME;
-				}
+				$file->setSources($before, $after, $this->print);
 				if ($this->diff) {
-					$this->diffs[$file] = Diff\Diff::create($before, $after);
+					$file->setDiff($before, $after);
 				}
 				if ($this->output && !$this->diff && !$this->print) {
-					file_put_contents($file, $after);
-				}
-				if ($this->print) {
-					$this->outputs[$file] = $after;
+					file_put_contents($file->getPath(), $after);
 				}
 			} catch (TemplateSkippedException $e) {
-				$status = self::FILE_TEMPLATE_SKIPPED;
+				$file->setSkipped();
 			} catch (\Exception $e) {
-				$status = self::FILE_ERROR;
+				$file->setError($e->getMessage());
 			}
-			$this->statuses[$status][] = $file;
 			$this->showProgress($key);
 		}
+		$duration = microtime(true) - $startTime;
 		$this->stdio->out("    \r");
-
 		$this->showDiffs();
 		$this->showOutput();
 		$this->showFileSummary();
-		$this->showSummary();
+		$this->showSummary($duration);
 	}
 
 	public function enablePrint()
@@ -174,16 +149,14 @@ class FormatJob
 		if (!$this->summary) {
 			return;
 		}
-		foreach ($this->statuses as $status => $files) {
-			$message = sprintf(
-				'<<%s>>%s<<reset>>',
-				self::FILE_STYLES[$status],
-				self::FILE_DESCRIPTIONS[$status]
-			);
-			$this->stdio->outln($message);
+		foreach ($this->getFilesGroupedByStatus() as $files) {
+			$file = $files[0];
+			$status = sprintf('<<%s>>%s<<reset>>', $file->getStatusStyle(), $file->getStatusDescription());
+			$this->stdio->outln($status);
 			foreach ($files as $file) {
-				$this->stdio->outln($file);
+				$this->stdio->outln($file->getPath());
 			}
+			$this->stdio->outln();
 		}
 	}
 
@@ -192,36 +165,56 @@ class FormatJob
 	 */
 	private function showDiffs()
 	{
-		if (!$this->diff) {
-			return;
-		}
 		if ($this->stdio->getStdout()->isPosix()) {
 			$diffTemplate = new Template\POSIX();
 		} else {
 			$diffTemplate = new Template\Text();
 		}
-		foreach ($this->diffs as $file => $diff) {
-			$this->stdio->outln('<<ul>>'.$file . '<<reset>>:');
-			$this->stdio->outln($diffTemplate->format($diff));
+		foreach ($this->files as $file) {
+			if ($file->hasDiff()) {
+				$this->stdio->outln('<<ul>>'.$file->getPath() . '<<reset>>:');
+				$this->stdio->outln($diffTemplate->format($file->getDiff()));
+			}
 		}
 	}
 
 	private function showOutput()
 	{
-		if (!$this->print) {
-			return;
-		}
-		foreach ($this->outputs as $file => $output) {
-			$this->stdio->outln('<<ul>>'.$file . '<<reset>>:');
-			$this->stdio->outln($output);
+		foreach ($this->files as $file) {
+			if ($file->hasOutput()) {
+				$this->stdio->outln('<<ul>>' . $file->getPath() . '<<reset>>:');
+				$this->stdio->outln($file->getOutput());
+			}
 		}
 	}
 
-	private function showSummary()
+	/**
+	 * @return FormatJobFile[][]
+	 */
+	public function getFilesGroupedByStatus()
 	{
-		foreach ($this->statuses as $status => $files) {
-			$message = sprintf('<<%s>>%s<<reset>>: %d ', self::FILE_STYLES[$status], self::FILE_DESCRIPTIONS[$status], count($files));
-			$this->stdio->outln($message);
+		$map = [];
+		foreach ($this->files as $file) {
+			$map[$file->getStatus()][] = $file;
 		}
+		ksort($map);
+		return $map;
+	}
+
+	private function showSummary($microseconds)
+	{
+		$statusFileMap = $this->getFilesGroupedByStatus();
+		$changedCount = 0;
+		if (isset($statusFileMap[FormatJobFile::STATUS_CHANGED])) {
+			$changedCount = count($statusFileMap[FormatJobFile::STATUS_CHANGED]);
+		}
+		$duration = Duration::create()->format((int)$microseconds) . ' ';
+		if ($microseconds < 10) {
+			if ($microseconds < 1) {
+				$duration = '';
+			}
+			$duration .= round(($microseconds - (int)$microseconds) * 1000) .'ms';
+		}
+		$this->stdio->outln(sprintf('<<greenbg black>>Formatted %d file%s in %s.<<reset>>', $changedCount, Quantity::format('(s)', $changedCount), $duration));
 	}
 }
