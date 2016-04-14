@@ -214,6 +214,18 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		}
 	}
 
+	protected function handleMagicTokens($str) {
+        // Drop no-indent tokens
+        $str = str_replace($this->noIndentToken, '', $str);
+
+        // Replace doc-string-end tokens with nothing or a newline
+        $str = str_replace($this->docStringEndToken . ";\n", ";\n", $str);
+        $str = str_replace($this->docStringEndToken . ";", ";", $str);
+        $str = str_replace($this->docStringEndToken, "\n", $str);
+
+        return $str;
+    }
+
 	public function pStmt_Interface(Stmt\Interface_ $node) {
 		return 'interface ' . $node->name
 		. (!empty($node->extends) ? ' extends ' . $this->pCommaSeparatedLines($node->extends) : ' ')
@@ -244,6 +256,10 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 
 	public function pScalar_String(Node\Scalar\String_ $node)
 	{
+		$kind = $node->getAttribute('kind', Node\Scalar\String_::KIND_SINGLE_QUOTED);
+		if ($kind === Node\Scalar\String_::KIND_HEREDOC || $kind === Node\Scalar\String_::KIND_NOWDOC) {
+			return parent::pScalar_String($node);
+		}
 		return $node->getAttribute('originalValue');
 	}
 
