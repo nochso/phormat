@@ -16,7 +16,7 @@ class FixtureIterator implements \Iterator
 	private $files;
 
 	/**
-	 * @param $pattern glob() style pattern of input files.
+	 * @param string $pattern glob() style pattern of input files.
 	 */
 	public function __construct($pattern)
 	{
