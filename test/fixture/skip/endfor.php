@@ -1,0 +1,1 @@
+<?php for (;;): ?><?php endfor; ?>

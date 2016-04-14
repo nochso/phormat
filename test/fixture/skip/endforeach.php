@@ -1,0 +1,1 @@
+<?php foreach ([] as $a): ?><?php endforeach; ?>

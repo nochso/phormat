@@ -4,6 +4,7 @@ namespace nochso\Phormat\Test;
 
 
 use nochso\Phormat\Formatter;
+use nochso\Phormat\TemplateSkippedException;
 
 class FormatterTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,5 +31,22 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 	{
 		$formatter = new Formatter();
 		$this->assertSame($expectedSource, $formatter->format($expectedSource));
+	}
+
+	public function skipProvider()
+	{
+		foreach (FixtureProvider::provide(__DIR__.'/fixture/skip/*.php') as $key => $value) {
+			yield $key => $value;
+		}
+	}
+
+	/**
+	 * @dataProvider skipProvider
+	 */
+	public function testNativeTemplatesMustBeSkipped($expectedSource, $inputSource)
+	{
+		$formatter = new Formatter();
+		$this->expectException(TemplateSkippedException::class);
+		$formatter->format($inputSource);
 	}
 }
