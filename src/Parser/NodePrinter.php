@@ -118,6 +118,15 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		return $result;
 	}
 
+	public function pStmt_Property(Stmt\Property $node) {
+		$modifier = 0 === $node->type ? 'var ' : $this->pModifiers($node->type);
+		$properties = $this->pCommaSeparatedLines($node->props);
+		if (strpos($properties, "\n") !== false) {
+			return rtrim($modifier) . rtrim($properties).';';
+		}
+		return $modifier . $properties . ';';
+	}
+
 	protected function pCommaSeparatedLines(array $nodes, $prefix = '', $suffix = '', $trailingComma = false)
 	{
 		$arr = parent::pCommaSeparated($nodes);

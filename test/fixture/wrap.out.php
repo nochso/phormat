@@ -80,6 +80,14 @@ class Y {
 			A::bigTalk insteadof SomeLongTraitName2;
 			B::bigTalk as talk;
 		}
+
+	/**
+	 * @var int
+	 */
+	private
+		$somePrivatePropertiesOnTheSameLine1,
+		$somePrivatePropertiesOnTheSameLine2,
+		$somePrivatePropertiesOnTheSameLine3;
 }
 interface IX extends 
 	LongInterfaceName1,
