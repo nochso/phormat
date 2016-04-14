@@ -10,9 +10,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 {
 	public function formatProvider()
 	{
-		foreach (FixtureProvider::provide(__DIR__ . '/fixture/*.in.php') as $key => $value) {
-			yield $key => $value;
-		}
+		return new FixtureIterator(__DIR__ . '/fixture/*.in.php');
 	}
 
 	/**
@@ -35,9 +33,7 @@ class FormatterTest extends \PHPUnit_Framework_TestCase
 
 	public function skipProvider()
 	{
-		foreach (FixtureProvider::provide(__DIR__.'/fixture/skip/*.php') as $key => $value) {
-			yield $key => $value;
-		}
+		return new FixtureIterator(__DIR__ . '/fixture/skip/*.php');
 	}
 
 	/**
