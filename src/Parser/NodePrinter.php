@@ -2,6 +2,8 @@
 
 namespace nochso\Phormat\Parser;
 
+use nochso\Omni\Multiline;
+use nochso\Omni\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
@@ -127,6 +129,48 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		return $modifier . $properties . ';';
 	}
 
+	protected function pComments(array $comments)
+	{
+		$lines = Multiline::create(parent::pComments($comments));
+		// Trim trailing non-Markdown whitespace
+		$lines->apply(function ($line) {
+			if (preg_match('/(?<! |\\*)  $/', $line)) {
+				return $line;
+			}
+			return rtrim($line);
+		});
+		$lastStartPos = PHP_INT_MIN;
+		$consecutive = 0;
+		$isFenced = false;
+		foreach ($lines->toArray() as $pos => $line) {
+			// Ignore fenced Markdown
+			if (preg_match('/^\s*\\*\s?```\s*$/', $line)) {
+				$isFenced = !$isFenced;
+			}
+			if ($isFenced) {
+				$consecutive = $this->removeConsecutiveEmptyDocs($lines, $consecutive, $lastStartPos, $pos);
+				continue;
+			}
+			// Remember last start /* or /**
+			if (preg_match("/^(\\s*\\/\\*+\\s*)$/", $line)) {
+				$lastStartPos = $pos;
+				continue;
+			}
+			// Keep matching whitespacey lines
+			if (preg_match("/^\\s*\\*\\s*$/", $line)) {
+				$consecutive++;
+				continue;
+			}
+			if (preg_match('/^\\s*\\*\\/\\s*$/', $line)) {
+				$lastStartPos = $pos-$consecutive-1;
+			}
+			// Remove lines if possible
+			$consecutive = $this->removeConsecutiveEmptyDocs($lines, $consecutive, $lastStartPos, $pos);
+		}
+		return (string)$lines;
+	}
+
+
 	protected function pCommaSeparatedLines(array $nodes, $prefix = '', $suffix = '', $trailingComma = false)
 	{
 		$arr = parent::pCommaSeparated($nodes);
@@ -218,5 +262,15 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		}
 
 		return $return;
+	}
+
+	protected function removeConsecutiveEmptyDocs(Multiline $lines, $consecutive, $lastStartPos, $pos)
+	{
+		if ($consecutive > 0 && $lastStartPos === $pos - $consecutive - 1 || $consecutive > 1) {
+			foreach (range($pos - $consecutive, $pos - 1) as $needle) {
+				$lines->remove($needle);
+			}
+		}
+		return 0;
 	}
 }
