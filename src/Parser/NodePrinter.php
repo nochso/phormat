@@ -168,7 +168,12 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	}
 
 	public function pStmt_TraitUse(Stmt\TraitUse $node) {
-		return 'use ' . rtrim($this->pCommaSeparatedLines($node->traits))
+		$traits = rtrim($this->pCommaSeparatedLines($node->traits));
+		$use = 'use';
+		if (strpos($traits, "\n") === false) {
+			$use .= ' ';
+		}
+		return $use . $traits
 		. (empty($node->adaptations)
 			? ';'
 			: ' {' . preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $this->pStmts($node->adaptations) . "\n" . '}'));

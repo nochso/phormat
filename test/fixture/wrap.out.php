@@ -53,7 +53,7 @@ class X extends Y implements
 	LongInterfaceName5,
 	LongInterfaceName5
 {
-	use 
+	use
 		SomeLongTraitName1,
 		SomeLongTraitName2,
 		SomeLongTraitName3,
@@ -70,7 +70,7 @@ class X extends Y implements
 	}
 }
 class Y {
-	use 
+	use
 		SomeLongTraitName1,
 		SomeLongTraitName2,
 		SomeLongTraitName3,
