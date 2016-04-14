@@ -9,3 +9,9 @@ $f = "{$d}\nx";
 $g = "$f
 
 ";
+$h = <<<'TAG'
+nowdoc
+TAG;
+$i = <<<TAG
+heredoc
+TAG;
