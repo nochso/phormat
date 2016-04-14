@@ -23,6 +23,7 @@ class FormatJob
 	 */
 	private $files = [];
 	private $errors = [];
+	private $progressStatusMap = [];
 	/**
 	 * @var \Aura\Cli\Stdio
 	 */
@@ -85,8 +86,8 @@ class FormatJob
 
 	public function run()
 	{
+		$this->progressStatusMap = array_fill_keys(array_keys(FormatJobFile::STATUS_STYLES), 0);
 		$startTime = microtime(true);
-		$this->stdio->outln(sprintf('Found %d file%s to format.', count($this->files), Quantity::format('(s)', count($this->files))));
 		$this->stdio->outln();
 		$formatter = new Formatter();
 		foreach ($this->files as $key => $file) {
@@ -108,10 +109,10 @@ class FormatJob
 			} catch (\Exception $e) {
 				$file->setError($e->getMessage());
 			}
-			$this->showProgress($key);
+			$this->showProgress($key, $file);
 		}
 		$duration = microtime(true) - $startTime;
-		$this->stdio->out("    \r");
+		$this->stdio->out("\r".str_repeat(' ', 80)."\r");
 		$this->showDiffs();
 		$this->showOutput();
 		$this->showFileSummary();
@@ -137,11 +138,26 @@ class FormatJob
 		$this->output = false;
 	}
 
-	private function showProgress($key)
+	private function showProgress($key, FormatJobFile $file)
 	{
-		$percentage = round(($key + 1) / count($this->files) * 100);
-		$percentage = str_pad($percentage, 3, ' ', STR_PAD_LEFT) ;
-		$this->stdio->out($percentage . "%\r");
+		$this->progressStatusMap[$file->getStatus()]++;
+		if (($key+1) % 5) {
+			return;
+		}
+		$count = count($this->files);
+		$formatCount = str_pad(number_format($key+1), strlen(number_format($count)), ' ', STR_PAD_LEFT).'/'.number_format($count);
+		$bar = '';
+		$sumChars = 0;
+		foreach ($this->progressStatusMap as $status => $statusCount) {
+			$chars = floor($statusCount / $count * 100 / 2);
+			$sumChars+=$chars;
+			$bar .= sprintf('<<%s>>%s<<reset>>', FormatJobFile::STATUS_STYLES[$status], str_repeat('|', $chars), str_repeat(' ', 50-$chars));
+		}
+		$bar .= str_repeat(' ', 50-$sumChars);
+		$bar = '['.$bar.']';
+		$percentage = ($key + 1) / $count * 100;
+		$paddedPercentage = str_pad(round($percentage), 3, ' ', STR_PAD_LEFT) ;
+		$this->stdio->out("\r" . $paddedPercentage . "% $bar $formatCount");
 	}
 
 	private function showFileSummary()
@@ -215,6 +231,6 @@ class FormatJob
 			}
 			$duration .= round(($microseconds - (int)$microseconds) * 1000) .'ms';
 		}
-		$this->stdio->outln(sprintf('<<greenbg black>>Formatted %d file%s in %s.<<reset>>', $changedCount, Quantity::format('(s)', $changedCount), $duration));
+		$this->stdio->outln(sprintf('<<green>>Formatted %d file%s in %s.<<reset>>', $changedCount, Quantity::format('(s)', $changedCount), $duration));
 	}
 }
