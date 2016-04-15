@@ -50,4 +50,12 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
 		$formatter->setOrderClassElements(true);
 		$this->assertSame($expectedSource, $formatter->format($inputSource));
 	}
+
+	/**
+	 * @dataProvider orderClassElementsProvider
+	 */
+	public function testOrderClassElements_OutputMustNotChange($expectedSource, $inputSource) {
+		$formatter = new Formatter();
+		$this->assertSame($expectedSource, $formatter->format($expectedSource));
+	}
 }
