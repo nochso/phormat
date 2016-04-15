@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a73f62f87db01fced8127f7517e4a8b9",
+    "hash": "78a6f09466115b7cbc53eea348c4158d",
     "content-hash": "342ccaa22eb5606c0192d421e9964723",
     "packages": [
         {
@@ -178,12 +178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "e7f0860d85ba80c8e858278393cd0b0b67941276"
+                "reference": "f8a40b3f2458c119274a09b147794efeba626a7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/e7f0860d85ba80c8e858278393cd0b0b67941276",
-                "reference": "e7f0860d85ba80c8e858278393cd0b0b67941276",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f8a40b3f2458c119274a09b147794efeba626a7e",
+                "reference": "f8a40b3f2458c119274a09b147794efeba626a7e",
                 "shasum": ""
             },
             "require": {
@@ -221,7 +221,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2016-04-10 12:10:55"
+            "time": "2016-04-15 13:07:30"
         },
         {
             "name": "nochso/diff",
@@ -229,24 +229,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nochso/diff.git",
-                "reference": "7b1e65932e34711b7de722844d090a708eadba63"
+                "reference": "8e1988bdf7b2bd158312eea347867ba77a931d07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nochso/diff/zipball/7b1e65932e34711b7de722844d090a708eadba63",
-                "reference": "7b1e65932e34711b7de722844d090a708eadba63",
+                "url": "https://api.github.com/repos/nochso/diff/zipball/8e1988bdf7b2bd158312eea347867ba77a931d07",
+                "reference": "8e1988bdf7b2bd158312eea347867ba77a931d07",
                 "shasum": ""
             },
             "require": {
                 "nochso/omni": "^0.3.0",
-                "php": ">=5.6.0",
-                "symfony/var-dumper": "^3.0"
+                "php": ">=5.6.0"
             },
             "require-dev": {
                 "brianium/paratest": "dev-master",
                 "fabpot/php-cs-fixer": "^1.11",
                 "nochso/writeme": "dev-develop",
-                "phpunit/phpunit": "^5.2"
+                "phpunit/phpunit": "^5.2",
+                "symfony/var-dumper": "^3.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Required by nochso\\Diff\\Escape\\Cli"
             },
             "type": "library",
             "extra": {
@@ -286,7 +289,7 @@
                 "diff",
                 "lcs"
             ],
-            "time": "2016-04-09 23:35:02"
+            "time": "2016-04-15 21:01:25"
         },
         {
             "name": "nochso/omni",
@@ -391,69 +394,6 @@
                 "shim"
             ],
             "time": "2016-01-20 09:13:37"
-        },
-        {
-            "name": "symfony/var-dumper",
-            "version": "v3.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "3841ed86527d18ee2c35fe4afb1b2fc60f8fae79"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/3841ed86527d18ee2c35fe4afb1b2fc60f8fae79",
-                "reference": "3841ed86527d18ee2c35fe4afb1b2fc60f8fae79",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9",
-                "symfony/polyfill-mbstring": "~1.0"
-            },
-            "require-dev": {
-                "twig/twig": "~1.20|~2.0"
-            },
-            "suggest": {
-                "ext-symfony_debug": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "Resources/functions/dump.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Component\\VarDumper\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony mechanism for exploring and dumping PHP variables",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "debug",
-                "dump"
-            ],
-            "time": "2016-03-10 10:34:12"
         }
     ],
     "packages-dev": [
@@ -907,16 +847,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.3.1",
+            "version": "5.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "34a3acb401ae79deb37bc6e5f5ec3d325b369b4c"
+                "reference": "2c6da3536035617bae3fe3db37283c9e0eb63ab3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/34a3acb401ae79deb37bc6e5f5ec3d325b369b4c",
-                "reference": "34a3acb401ae79deb37bc6e5f5ec3d325b369b4c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2c6da3536035617bae3fe3db37283c9e0eb63ab3",
+                "reference": "2c6da3536035617bae3fe3db37283c9e0eb63ab3",
                 "shasum": ""
             },
             "require": {
@@ -978,7 +918,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-04-07 07:04:34"
+            "time": "2016-04-12 16:20:08"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
