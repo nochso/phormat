@@ -1,0 +1,16 @@
+{
+    "directories": ["src"],
+    "finder": [
+        {
+            "in": "vendor",
+            "name": "*.php",
+            "exclude": ["test", "tests"]
+        }
+    ],
+    "main": "phormat",
+    "output": "phormat.phar",
+    "chmod": "0755",
+    "stub": true,
+    "git-version": "git_version",
+    "compactors": ["Herrera\\Box\\Compactor\\Php"]
+}
