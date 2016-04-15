@@ -139,7 +139,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 			}
 			return rtrim($line);
 		});
-		$lastStartPos = PHP_INT_MIN;
+		$lastStartPos = -1;
 		$consecutive = 0;
 		$isFenced = false;
 		foreach ($lines->toArray() as $pos => $line) {
