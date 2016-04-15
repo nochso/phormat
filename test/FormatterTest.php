@@ -37,4 +37,17 @@ class FormatterTest extends \PHPUnit_Framework_TestCase {
 		$this->expectException(TemplateSkippedException::class);
 		$formatter->format($inputSource);
 	}
+
+	public function orderClassElementsProvider() {
+		return new FixtureIterator(__DIR__ . '/fixture/order.class.elements/*.in.php');
+	}
+
+	/**
+	 * @dataProvider orderClassElementsProvider
+	 */
+	public function testOrderClassElements($expectedSource, $inputSource) {
+		$formatter = new Formatter();
+		$formatter->setOrderClassElements(true);
+		$this->assertSame($expectedSource, $formatter->format($inputSource));
+	}
 }
