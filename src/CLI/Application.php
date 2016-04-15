@@ -73,6 +73,9 @@ class Application {
 		if ($this->opt->get('--no-output')) {
 			$job->disableOutput();
 		}
+		if ($this->opt->get('--order')) {
+			$job->enableOrder();
+		}
 		$job->run();
 		exit(Status::SUCCESS);
 	}
@@ -93,6 +96,7 @@ TAG
 		return [
 			'd,diff' => 'Preview diff of formatted code. Implies --no-output.',
 			's,summary' => "Show a status summary for each file.",
+			'o,order' => 'Change order of class elements.',
 			'p,print' => 'Print full output of formatted code. Implies --no-output.',
 			'n,no-output' => 'Do not overwrite source files.',
 			'h,help' => 'Show this help.',

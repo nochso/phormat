@@ -15,6 +15,7 @@ class FormatJob {
 	private $diff = false;
 	private $print = false;
 	private $summary = false;
+	private $order = false;
 	/**
 	 * @var \nochso\Phormat\CLI\FormatJobFile[]
 	 */
@@ -77,6 +78,7 @@ class FormatJob {
 		$startTime = microtime(true);
 		$this->stdio->outln();
 		$formatter = new Formatter();
+		$formatter->setOrderClassElements($this->order);
 		foreach ($this->files as $key => $file) {
 			if ($file->getStatus() === FormatJobFile::STATUS_MISSING) {
 				continue;
@@ -120,6 +122,14 @@ class FormatJob {
 
 	public function disableOutput() {
 		$this->output = false;
+	}
+
+	public function enableOrder() {
+		$this->order = true;
+	}
+
+	public function disableOrder() {
+		$this->order = false;
 	}
 
 	private function showProgress($key, FormatJobFile $file) {

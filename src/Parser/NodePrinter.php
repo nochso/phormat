@@ -22,6 +22,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		Stmt\ClassMethod::class,
 		Stmt\Function_::class,
 	];
+	private $orderElements = false;
 
 	public function __construct(array $options = [])
 	{
@@ -129,6 +130,14 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		return $modifier . $properties . ';';
 	}
 
+	/**
+	 * @param bool $orderElements
+	 */
+	public function setOrderElements($orderElements)
+	{
+		$this->orderElements = $orderElements;
+	}
+
 	protected function pComments(array $comments)
 	{
 		$lines = Multiline::create(parent::pComments($comments));
@@ -189,6 +198,9 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	 * @return string Pretty printed statements
 	 */
 	protected function pStmts(array $nodes, $indent = true) {
+		if ($this->orderElements) {
+			NodeCompare::sortNodes($nodes);
+		}
 		$result = '';
 		$prevContext = null;
 		foreach ($nodes as $node) {

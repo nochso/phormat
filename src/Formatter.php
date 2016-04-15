@@ -29,6 +29,14 @@ class Formatter {
 	}
 
 	/**
+	 * @param bool $enable
+	 */
+	public function setOrderClassElements($enable)
+	{
+		$this->printer->setOrderElements($enable);
+	}
+
+	/**
 	 * Format PHP code the phormat way.
 	 *
 	 * @param string $input PHP source code.
