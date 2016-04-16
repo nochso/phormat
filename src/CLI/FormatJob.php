@@ -183,7 +183,7 @@ class FormatJob {
 			$diffTemplate = new Template\Text();
 		}
 		foreach ($this->files as $file) {
-			if ($file->hasDiff()) {
+			if ($file->hasDiff() && count($file->getDiff()->getDiffLines())) {
 				$this->stdio->outln('<<ul>>' . $file->getPath() . '<<reset>>:');
 				$this->stdio->outln($diffTemplate->format($file->getDiff()));
 			}
