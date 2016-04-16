@@ -256,7 +256,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		if ($kind === Node\Scalar\String_::KIND_HEREDOC || $kind === Node\Scalar\String_::KIND_NOWDOC) {
 			return parent::pScalar_String($node);
 		}
-		return $node->getAttribute('originalValue');
+		return $this->pNoIndent($node->getAttribute('originalValue'));
 	}
 
 	protected function pEncapsList(array $encapsList, $quote) {
