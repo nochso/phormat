@@ -12,6 +12,9 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Fixed
+- Removed const arrays for HHVM compatibility.
+- Do not indent single/double quoted strings.
 
 ## 0.1.0 - 2016-04-16
 ### Added

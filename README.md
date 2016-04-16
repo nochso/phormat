@@ -54,7 +54,7 @@ composer global require nochso/phormat
 
 # Usage
 
-As a local dependency `php bin/phormat` or if installed globally just `phormat`.
+As a local dependency `php vendor/bin/phormat` or if installed globally just `phormat`.
 
     phormat [options] <path>
     phormat [options] <path1> <path2> ...
@@ -117,6 +117,10 @@ See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between
 releases.
 
 ## [Unreleased]
+
+### Fixed
+- Removed const arrays for HHVM compatibility.
+- Do not indent single/double quoted strings.
 
 
 ## 0.1.0 - 2016-04-16
