@@ -293,16 +293,16 @@
         },
         {
             "name": "nochso/omni",
-            "version": "0.3.6",
+            "version": "0.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nochso/omni.git",
-                "reference": "eb1d12198de02bf9d03da1936270c560b7388d21"
+                "reference": "837f9d0b502b10dc8d6312f0ccb1d505215c3a80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nochso/omni/zipball/eb1d12198de02bf9d03da1936270c560b7388d21",
-                "reference": "eb1d12198de02bf9d03da1936270c560b7388d21",
+                "url": "https://api.github.com/repos/nochso/omni/zipball/837f9d0b502b10dc8d6312f0ccb1d505215c3a80",
+                "reference": "837f9d0b502b10dc8d6312f0ccb1d505215c3a80",
                 "shasum": ""
             },
             "require": {
@@ -334,7 +334,7 @@
                 }
             ],
             "description": "Helps with every day nuisances like path or EOL handling.",
-            "time": "2016-04-07 19:33:54"
+            "time": "2016-04-16 11:18:20"
         },
         {
             "name": "symfony/polyfill-mbstring",
