@@ -31,8 +31,7 @@ class Formatter {
 	/**
 	 * @param bool $enable
 	 */
-	public function setOrderClassElements($enable)
-	{
+	public function setOrderClassElements($enable) {
 		$this->printer->setOrderElements($enable);
 	}
 

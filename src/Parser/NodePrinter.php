@@ -1,5 +1,4 @@
 <?php
-
 namespace nochso\Phormat\Parser;
 
 use nochso\Omni\Multiline;
@@ -8,8 +7,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
 
-class NodePrinter extends \PhpParser\PrettyPrinter\Standard
-{
+class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 	const SEPARATE_TYPES = [
 		Node\Const_::class,
 		Stmt\ClassConst::class,
@@ -18,14 +16,11 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		Stmt\Function_::class,
 		Stmt\Use_::class,
 	];
-	const SEPARATE_IDENTICAL_TYPES = [
-		Stmt\ClassMethod::class,
-		Stmt\Function_::class,
-	];
+	const SEPARATE_IDENTICAL_TYPES = [Stmt\ClassMethod::class, Stmt\Function_::class];
+
 	private $orderElements = false;
 
-	public function __construct(array $options = [])
-	{
+	public function __construct(array $options = []) {
 		$options['shortArraySyntax'] = true;
 		parent::__construct($options);
 	}
@@ -48,10 +43,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		if ($stmts[count($stmts) - 1] instanceof Stmt\InlineHTML) {
 			$p = preg_replace('/<\?php$/', '', rtrim($p));
 		}
-
 		return $p . "\n";
 	}
-
 
 	public function pStmt_Function(Stmt\Function_ $node) {
 		return 'function ' . ($node->byRef ? '&' : '') . $node->name
@@ -80,13 +73,11 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	}
 
 	public function pExpr_FuncCall(Expr\FuncCall $node) {
-		return $this->pCallLhs($node->name)
-			. $this->pCommaSeparatedLines($node->args, '(', ')');
+		return $this->pCallLhs($node->name) . $this->pCommaSeparatedLines($node->args, '(', ')');
 	}
 
 	public function pExpr_MethodCall(Expr\MethodCall $node) {
-		return $this->pDereferenceLhs($node->var) . '->' . $this->pObjectProperty($node->name)
-			. $this->pCommaSeparatedLines($node->args, '(', ')');
+		return $this->pDereferenceLhs($node->var) . '->' . $this->pObjectProperty($node->name) . $this->pCommaSeparatedLines($node->args, '(', ')');
 	}
 
 	public function pExpr_StaticCall(Expr\StaticCall $node) {
@@ -125,7 +116,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		$modifier = 0 === $node->type ? 'var ' : $this->pModifiers($node->type);
 		$properties = $this->pCommaSeparatedLines($node->props);
 		if (strpos($properties, "\n") !== false) {
-			return rtrim($modifier) . rtrim($properties).';';
+			return rtrim($modifier) . rtrim($properties) . ';';
 		}
 		return $modifier . $properties . ';';
 	}
@@ -133,21 +124,21 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	/**
 	 * @param bool $orderElements
 	 */
-	public function setOrderElements($orderElements)
-	{
+	public function setOrderElements($orderElements) {
 		$this->orderElements = $orderElements;
 	}
 
-	protected function pComments(array $comments)
-	{
+	protected function pComments(array $comments) {
 		$lines = Multiline::create(parent::pComments($comments));
 		// Trim trailing non-Markdown whitespace
-		$lines->apply(function ($line) {
-			if (preg_match('/(?<! |\\*)  $/', $line)) {
-				return $line;
+		$lines->apply(
+			function ($line) {
+				if (preg_match('/(?<! |\\*)  $/', $line)) {
+					return $line;
+				}
+				return rtrim($line);
 			}
-			return rtrim($line);
-		});
+		);
 		$lastStartPos = -1;
 		$consecutive = 0;
 		$isFenced = false;
@@ -171,20 +162,18 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 				continue;
 			}
 			if (preg_match('/^\\s*\\*\\/\\s*$/', $line)) {
-				$lastStartPos = $pos-$consecutive-1;
+				$lastStartPos = $pos - $consecutive - 1;
 			}
 			// Remove lines if possible
 			$consecutive = $this->removeConsecutiveEmptyDocs($lines, $consecutive, $lastStartPos, $pos);
 		}
-		return (string)$lines;
+		return (string) $lines;
 	}
 
-
-	protected function pCommaSeparatedLines(array $nodes, $prefix = '', $suffix = '', $trailingComma = false)
-	{
+	protected function pCommaSeparatedLines(array $nodes, $prefix = '', $suffix = '', $trailingComma = false) {
 		$arr = parent::pCommaSeparated($nodes);
 		if (strlen($arr) > 80) {
-			$arr = "\n".$this->pImplode($nodes, ",\n").($trailingComma ? ',' : '')."\n";
+			$arr = "\n" . $this->pImplode($nodes, ",\n") . ($trailingComma ? ',' : '') . "\n";
 		}
 		return $prefix . preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $arr) . $suffix;
 	}
@@ -227,16 +216,14 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 	}
 
 	protected function handleMagicTokens($str) {
-        // Drop no-indent tokens
-        $str = str_replace($this->noIndentToken, '', $str);
-
-        // Replace doc-string-end tokens with nothing or a newline
-        $str = str_replace($this->docStringEndToken . ";\n", ";\n", $str);
-        $str = str_replace($this->docStringEndToken . ";", ";", $str);
-        $str = str_replace($this->docStringEndToken, "\n", $str);
-
-        return $str;
-    }
+		// Drop no-indent tokens
+		$str = str_replace($this->noIndentToken, '', $str);
+		// Replace doc-string-end tokens with nothing or a newline
+		$str = str_replace($this->docStringEndToken . ";\n", ";\n", $str);
+		$str = str_replace($this->docStringEndToken . ";", ";", $str);
+		$str = str_replace($this->docStringEndToken, "\n", $str);
+		return $str;
+	}
 
 	public function pStmt_Interface(Stmt\Interface_ $node) {
 		return 'interface ' . $node->name
@@ -256,8 +243,6 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 			: ' {' . preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $this->pStmts($node->adaptations) . "\n" . '}'));
 	}
 
-
-
 	protected function pClassCommon(Node\Stmt\Class_ $node, $afterClassToken) {
 		return $this->pModifiers($node->type)
 		. 'class' . $afterClassToken
@@ -266,8 +251,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 		. '{' . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
-	public function pScalar_String(Node\Scalar\String_ $node)
-	{
+	public function pScalar_String(Node\Scalar\String_ $node) {
 		$kind = $node->getAttribute('kind', Node\Scalar\String_::KIND_SINGLE_QUOTED);
 		if ($kind === Node\Scalar\String_::KIND_HEREDOC || $kind === Node\Scalar\String_::KIND_NOWDOC) {
 			return parent::pScalar_String($node);
@@ -288,12 +272,10 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard
 				$return .= '{' . $this->p($element) . '}';
 			}
 		}
-
 		return $return;
 	}
 
-	protected function removeConsecutiveEmptyDocs(Multiline $lines, $consecutive, $lastStartPos, $pos)
-	{
+	protected function removeConsecutiveEmptyDocs(Multiline $lines, $consecutive, $lastStartPos, $pos) {
 		if ($consecutive > 0 && $lastStartPos === $pos - $consecutive - 1 || $consecutive > 1) {
 			foreach (range($pos - $consecutive, $pos - 1) as $needle) {
 				$lines->remove($needle);

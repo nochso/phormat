@@ -85,10 +85,12 @@ class Application {
 		$help->setOptions($this->getOptions());
 		$help->setSummary('Format PHP source code by a single convention.');
 		$help->setUsage(['[options] <path>', '[options] <path1> <path2> ...']);
-		$help->setDescr(<<<TAG
+		$help->setDescr(
+			<<<TAG
 By default PHP files from the specified paths will be overwritten.
 TAG
-);
+
+		);
 		$this->stdio->outln($help->getHelp('phormat'));
 	}
 

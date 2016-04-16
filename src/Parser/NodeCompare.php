@@ -99,8 +99,7 @@ class NodeCompare {
 		return $result;
 	}
 
-	protected static function compareClassMethodName(ClassMethod $a, ClassMethod $b)
-	{
+	protected static function compareClassMethodName(ClassMethod $a, ClassMethod $b) {
 		$aIsMagic = Strings::startsWith($a->name, '__');
 		$bIsMagic = Strings::startsWith($b->name, '__');
 		// __magic goes first
@@ -108,22 +107,13 @@ class NodeCompare {
 			return strcmp($bIsMagic, $aIsMagic);
 		}
 		// Check for accessors
-		$accessorPrefixes = [
-			'has',
-			'is',
-			'get',
-			'set',
-			'add',
-			'remove',
-			'enable',
-			'disable',
-		];
-		$regex = '/^('.implode('|', $accessorPrefixes).')(([A-Z].*)?)$/';
+		$accessorPrefixes = ['has', 'is', 'get', 'set', 'add', 'remove', 'enable', 'disable'];
+		$regex = '/^(' . implode('|', $accessorPrefixes) . ')(([A-Z].*)?)$/';
 		$aAccessor = preg_match($regex, $a->name, $aMatches);
 		$bAccessor = preg_match($regex, $b->name, $bMatches);
 		$cmp = strcmp($bAccessor, $aAccessor);
 		// Only one accessor: move it up. If no accessors, keep as is.
-		if ($cmp !== 0 || (!$aAccessor && !$bAccessor)) {
+		if ($cmp !== 0 || !$aAccessor && !$bAccessor) {
 			return $cmp;
 		}
 		// Both are accessors. If they have different suffixes, sort by it
