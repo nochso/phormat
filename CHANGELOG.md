@@ -15,6 +15,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Fixed
 - Removed const arrays for HHVM compatibility.
 - Do not indent single/double quoted strings.
+- Stop putting property name on new line if it's a single property with wrappable assignment.
 
 ## 0.1.0 - 2016-04-16
 ### Added

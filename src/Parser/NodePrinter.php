@@ -114,9 +114,14 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 
 	public function pStmt_Property(Stmt\Property $node) {
 		$modifier = 0 === $node->type ? 'var ' : $this->pModifiers($node->type);
-		$properties = $this->pCommaSeparatedLines($node->props);
-		if (strpos($properties, "\n") !== false) {
-			return rtrim($modifier) . rtrim($properties) . ';';
+		if (count($node->props) > 1) {
+			$properties = $this->pCommaSeparatedLines($node->props);
+			if (strpos($properties, "\n") !== false) {
+				$modifier = rtrim($modifier);
+				$properties = rtrim($properties);
+			}
+		} else {
+			$properties = $this->pCommaSeparated($node->props);
 		}
 		return $modifier . $properties . ';';
 	}
