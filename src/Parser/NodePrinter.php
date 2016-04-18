@@ -151,7 +151,9 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			}
 			// Is a newline needed after the last one?
 			if (strlen($left . $operatorString . $right) - $lastNewLine >= 80) {
-				return $left . "\n\t" . ltrim($operatorString) . $right;
+				$out = "\n" . ltrim($operatorString) . $right;
+				$out = preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $out);
+				return $left . $out;
 			}
 		}
 		return $left . $operatorString . $right;
