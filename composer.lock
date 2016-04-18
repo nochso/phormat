@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae1a6e2b4f325ae929a9b7235f0532b1",
-    "content-hash": "70a2f5f4493d5a761122a6d9b6073384",
+    "hash": "68d20df76dd45d909fc385dd9db61b63",
+    "content-hash": "9b54c6911e374b24b5925a486007350e",
     "packages": [
         {
             "name": "aura/cli",
@@ -398,6 +398,195 @@
     ],
     "packages-dev": [
         {
+            "name": "cebe/markdown",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cebe/markdown.git",
+                "reference": "54a2c49de31cc44e864ebf0500a35ef21d0010b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/54a2c49de31cc44e864ebf0500a35ef21d0010b2",
+                "reference": "54a2c49de31cc44e864ebf0500a35ef21d0010b2",
+                "shasum": ""
+            },
+            "require": {
+                "lib-pcre": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "cebe/indent": "*",
+                "facebook/xhprof": "*@dev",
+                "phpunit/phpunit": "4.1.*"
+            },
+            "bin": [
+                "bin/markdown"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "cebe\\markdown\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc",
+                    "homepage": "http://cebe.cc/",
+                    "role": "Creator"
+                }
+            ],
+            "description": "A super fast, highly extensible markdown parser for PHP",
+            "homepage": "https://github.com/cebe/markdown#readme",
+            "keywords": [
+                "extensible",
+                "fast",
+                "gfm",
+                "markdown",
+                "markdown-extra"
+            ],
+            "time": "2015-03-06 05:28:07"
+        },
+        {
+            "name": "cocur/slugify",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cocur/slugify.git",
+                "reference": "eee9879958875921082293dbdbf4866b641864f2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/eee9879958875921082293dbdbf4866b641864f2",
+                "reference": "eee9879958875921082293dbdbf4866b641864f2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "laravel/framework": "~5.1",
+                "latte/latte": "~2.2",
+                "mikey179/vfsstream": "~1.6",
+                "mockery/mockery": "~0.9",
+                "nette/di": "~2.2",
+                "phpunit/phpunit": "~4.8|~5.2",
+                "pimple/pimple": "~1.1",
+                "plumphp/plum": "~0.1",
+                "silex/silex": "~1.3",
+                "symfony/config": "~2.4|~3.0",
+                "symfony/dependency-injection": "~2.4|~3.0",
+                "symfony/http-kernel": "~2.4|~3.0",
+                "twig/twig": "~1.12",
+                "zendframework/zend-modulemanager": "~2.2",
+                "zendframework/zend-servicemanager": "~2.2",
+                "zendframework/zend-view": "~2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cocur\\Slugify\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivo Bathke",
+                    "email": "ivo.bathke@gmail.com"
+                },
+                {
+                    "name": "Florian Eckerstorfer",
+                    "email": "florian@eckerstorfer.co",
+                    "homepage": "https://florian.ec"
+                }
+            ],
+            "description": "Converts a string into a slug.",
+            "keywords": [
+                "slug",
+                "slugify"
+            ],
+            "time": "2016-04-08 18:57:21"
+        },
+        {
+            "name": "doctrine/collections",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/collections.git",
+                "reference": "6c1e4eef75f310ea1b3e30945e9f06e652128b8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
+                "reference": "6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Doctrine\\Common\\Collections\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Collections Abstraction library",
+            "homepage": "http://www.doctrine-project.org",
+            "keywords": [
+                "array",
+                "collections",
+                "iterator"
+            ],
+            "time": "2015-04-14 22:21:58"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.0.5",
             "source": {
@@ -450,6 +639,89 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "reference": "3ebbd730b5c2cf5ce78bc1bf64071407fc6674b7",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2015-10-04 16:44:32"
+        },
+        {
+            "name": "erusev/parsedown-extra",
+            "version": "0.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown-extra.git",
+                "reference": "0db5cce7354e4b76f155d092ab5eb3981c21258c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown-extra/zipball/0db5cce7354e4b76f155d092ab5eb3981c21258c",
+                "reference": "0db5cce7354e4b76f155d092ab5eb3981c21258c",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown": "~1.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ParsedownExtra": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "An extension of Parsedown that adds support for Markdown Extra.",
+            "homepage": "https://github.com/erusev/parsedown-extra",
+            "keywords": [
+                "markdown",
+                "markdown extra",
+                "parsedown",
+                "parser"
+            ],
+            "time": "2015-11-01 10:19:22"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -510,6 +782,140 @@
             "time": "2015-12-05 17:17:57"
         },
         {
+            "name": "jralph/twig-markdown",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jralph/Twig-Markdown.git",
+                "reference": "d4460e29997be9ac41e8d44ee936f034646e1f84"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jralph/Twig-Markdown/zipball/d4460e29997be9ac41e8d44ee936f034646e1f84",
+                "reference": "d4460e29997be9ac41e8d44ee936f034646e1f84",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown-extra": "0.*",
+                "twig/twig": "~1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jralph\\Twig\\Markdown\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A simple twig markdown extension.",
+            "keywords": [
+                "markdown",
+                "parsedown",
+                "twig"
+            ],
+            "time": "2015-09-27 11:52:17"
+        },
+        {
+            "name": "linkorb/jsmin-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/linkorb/jsmin-php.git",
+                "reference": "be85d87fc9c27730e7e9ced742b13010dafc1026"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/linkorb/jsmin-php/zipball/be85d87fc9c27730e7e9ced742b13010dafc1026",
+                "reference": "be85d87fc9c27730e7e9ced742b13010dafc1026",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joost Faassen",
+                    "email": "j.faassen@linkorb.com",
+                    "role": "Packaging for composer"
+                },
+                {
+                    "name": "Ryan Grove",
+                    "email": "ryan@wonko.com",
+                    "role": "PHP port"
+                },
+                {
+                    "name": "Adam Gofort",
+                    "email": "aag@adamgoforth.com",
+                    "role": "Updates to the PHP port"
+                },
+                {
+                    "name": "Douglas Crockford",
+                    "email": "douglas@crockford.com"
+                }
+            ],
+            "description": "Unofficial package of jsmin-php",
+            "homepage": "http://www.github.com/linkorb/jsmin-php",
+            "keywords": [
+                "javascript",
+                "jsmin",
+                "minify"
+            ],
+            "time": "2013-03-15 13:16:35"
+        },
+        {
+            "name": "meenie/javascript-packer",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/meenie/javascript-packer.git",
+                "reference": "dcab0159ae1ed9d7535c034fb8afe1e4c3495d22"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/meenie/javascript-packer/zipball/dcab0159ae1ed9d7535c034fb8afe1e4c3495d22",
+                "reference": "dcab0159ae1ed9d7535c034fb8afe1e4c3495d22",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "class.JavaScriptPacker.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL 2.1"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Martin",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Composer hosted mirror of the PHP Version of Dean Edwards' JavaScript Packer",
+            "homepage": "http://joliclic.free.fr/php/javascript-packer/en/",
+            "keywords": [
+                "javascript packer"
+            ],
+            "time": "2013-03-25 21:54:33"
+        },
+        {
             "name": "myclabs/deep-copy",
             "version": "1.5.0",
             "source": {
@@ -550,6 +956,161 @@
                 "object graph"
             ],
             "time": "2015-11-07 22:20:37"
+        },
+        {
+            "name": "natxet/CssMin",
+            "version": "v3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/natxet/CssMin.git",
+                "reference": "92de3fe3ccb4f8298d31952490ef7d5395855c39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/natxet/CssMin/zipball/92de3fe3ccb4f8298d31952490ef7d5395855c39",
+                "reference": "92de3fe3ccb4f8298d31952490ef7d5395855c39",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joe Scylla",
+                    "email": "joe.scylla@gmail.com",
+                    "homepage": "https://profiles.google.com/joe.scylla"
+                }
+            ],
+            "description": "Minifying CSS",
+            "homepage": "http://code.google.com/p/cssmin/",
+            "keywords": [
+                "css",
+                "minify"
+            ],
+            "time": "2015-09-25 11:13:11"
+        },
+        {
+            "name": "nochso/benchmark",
+            "version": "0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nochso/Benchmark.git",
+                "reference": "321d8e9d3345de448bdef49eb05285a242b79f4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nochso/Benchmark/zipball/321d8e9d3345de448bdef49eb05285a242b79f4c",
+                "reference": "321d8e9d3345de448bdef49eb05285a242b79f4c",
+                "shasum": ""
+            },
+            "require": {
+                "cebe/markdown": "^1.1",
+                "cocur/slugify": "^2.1.1",
+                "doctrine/collections": "^1.3",
+                "jralph/twig-markdown": "^1.0",
+                "nochso/html-compress-twig": "^1.0",
+                "nochso/omni": "^0.3.8",
+                "symfony/finder": "^3.0",
+                "twig/twig": "^1.21"
+            },
+            "require-dev": {
+                "codegyre/robo": "*",
+                "fabpot/php-cs-fixer": "^1.10",
+                "nochso/sami-theme": "^0.2.0",
+                "phpunit/phpunit": "^5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "nochso\\Benchmark\\": "src/",
+                    "nochso\\Benchmark\\Test\\": "test/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Voigt",
+                    "email": "marcelpvoigt@gmail.com",
+                    "homepage": "http://noch.so",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Benchmark with reliable results",
+            "keywords": [
+                "benchmark",
+                "optimization",
+                "performance",
+                "testing",
+                "timing"
+            ],
+            "time": "2016-04-17 18:46:54"
+        },
+        {
+            "name": "nochso/html-compress-twig",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nochso/html-compress-twig.git",
+                "reference": "938c42c90964850d001a999b5e7fcaac5186cd42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nochso/html-compress-twig/zipball/938c42c90964850d001a999b5e7fcaac5186cd42",
+                "reference": "938c42c90964850d001a999b5e7fcaac5186cd42",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "^1.12",
+                "wyrihaximus/html-compress": "^1.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "nochso\\HtmlCompressTwig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Marcel Voigt",
+                    "email": "mv@noch.so"
+                }
+            ],
+            "description": "Twig extension for compressing HTML and inline CSS/Javascript",
+            "keywords": [
+                "compress",
+                "css",
+                "extension",
+                "html",
+                "javascript",
+                "minify",
+                "twig"
+            ],
+            "time": "2016-01-27 20:08:47"
         },
         {
             "name": "nochso/writeme",
@@ -608,6 +1169,53 @@
                 "yaml"
             ],
             "time": "2016-04-16 21:01:21"
+        },
+        {
+            "name": "patchwork/jsqueeze",
+            "version": "v2.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tchwork/jsqueeze.git",
+                "reference": "74203bf6f4f891f5741cf286c2e47ece120f8b3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tchwork/jsqueeze/zipball/74203bf6f4f891f5741cf286c2e47ece120f8b3e",
+                "reference": "74203bf6f4f891f5741cf286c2e47ece120f8b3e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Patchwork\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(Apache-2.0 or GPL-2.0)"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                }
+            ],
+            "description": "Efficient JavaScript minification in PHP",
+            "homepage": "https://github.com/tchwork/jsqueeze",
+            "keywords": [
+                "compression",
+                "javascript",
+                "minification"
+            ],
+            "time": "2016-03-27 16:56:41"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1748,6 +2356,55 @@
             "time": "2016-02-04 12:56:52"
         },
         {
+            "name": "symfony/finder",
+            "version": "v3.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/finder.git",
+                "reference": "c54e407b35bc098916704e9fd090da21da4c4f52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/c54e407b35bc098916704e9fd090da21da4c4f52",
+                "reference": "c54e407b35bc098916704e9fd090da21da4c4f52",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Finder\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-03-10 11:13:05"
+        },
+        {
             "name": "symfony/polyfill-php56",
             "version": "v1.1.1",
             "source": {
@@ -1903,6 +2560,173 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2016-03-04 07:55:57"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.24.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "require-dev": {
+                "symfony/debug": "~2.7",
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.24-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2016-01-25 21:22:18"
+        },
+        {
+            "name": "websharks/css-minifier",
+            "version": "150820",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/websharks/css-minifier.git",
+                "reference": "da1d0254c41e1f59c7337aa444d743e6056046ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/websharks/css-minifier/zipball/da1d0254c41e1f59c7337aa444d743e6056046ff",
+                "reference": "da1d0254c41e1f59c7337aa444d743e6056046ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WebSharks\\CssMinifier\\": "src/includes/classes"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "websharks",
+                    "homepage": "http://websharks-inc.com/",
+                    "role": "company"
+                },
+                {
+                    "name": "jaswsinc",
+                    "homepage": "http://jaswsinc.com/",
+                    "role": "developer"
+                },
+                {
+                    "name": "raamdev",
+                    "homepage": "http://raam.org/",
+                    "role": "developer"
+                }
+            ],
+            "description": "Compresses CSS.",
+            "homepage": "https://github.com/websharks/css-minifier",
+            "keywords": [
+                "compressor",
+                "css",
+                "websharks"
+            ],
+            "time": "2015-08-21 03:19:25"
+        },
+        {
+            "name": "wyrihaximus/html-compress",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WyriHaximus/HtmlCompress.git",
+                "reference": "f6205df099f920ac69b4eeb98104cebacf87004a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WyriHaximus/HtmlCompress/zipball/f6205df099f920ac69b4eeb98104cebacf87004a",
+                "reference": "f6205df099f920ac69b4eeb98104cebacf87004a",
+                "shasum": ""
+            },
+            "require": {
+                "linkorb/jsmin-php": "1.0.0",
+                "meenie/javascript-packer": "1.1",
+                "natxet/cssmin": "^3.0",
+                "patchwork/jsqueeze": "~1.0|~2.0",
+                "php": ">=5.4.0",
+                "websharks/css-minifier": "150820"
+            },
+            "require-dev": {
+                "phake/phake": "^1.0",
+                "phpunit/phpunit": "^4.0",
+                "squizlabs/php_codesniffer": "^1.0",
+                "vectorface/dunit": "^2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WyriHaximus\\HtmlCompress\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com",
+                    "homepage": "http://wyrihaximus.net/"
+                }
+            ],
+            "description": "Compress/minify your HTML",
+            "keywords": [
+                "compress",
+                "html"
+            ],
+            "time": "2015-10-04 19:37:02"
         },
         {
             "name": "zendframework/zend-code",
