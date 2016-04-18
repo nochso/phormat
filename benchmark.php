@@ -111,7 +111,7 @@ foreach ($repos as $repoName => $repo) {
 	if (is_file($phpCsConfig)) {
 		unlink($phpCsConfig);
 	}
-	$unit->addParam(new Parameter($repoDir, $repoName));
+	$unit->addParam(new Parameter($repoDir, $repoName, "[$repo]($repo)"));
 }
 
 $report->unitList->add($unit);

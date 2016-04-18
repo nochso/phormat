@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "68d20df76dd45d909fc385dd9db61b63",
-    "content-hash": "9b54c6911e374b24b5925a486007350e",
+    "hash": "826afafdf834c5cc7a0fcb6e3991c24f",
+    "content-hash": "e640ecdc7a674655e015fde8e78397f9",
     "packages": [
         {
             "name": "aura/cli",
@@ -1006,16 +1006,16 @@
         },
         {
             "name": "nochso/benchmark",
-            "version": "0.5.2",
+            "version": "0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nochso/Benchmark.git",
-                "reference": "321d8e9d3345de448bdef49eb05285a242b79f4c"
+                "reference": "d90e4455637cbb01340bfa0229351e13148ecf96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nochso/Benchmark/zipball/321d8e9d3345de448bdef49eb05285a242b79f4c",
-                "reference": "321d8e9d3345de448bdef49eb05285a242b79f4c",
+                "url": "https://api.github.com/repos/nochso/Benchmark/zipball/d90e4455637cbb01340bfa0229351e13148ecf96",
+                "reference": "d90e4455637cbb01340bfa0229351e13148ecf96",
                 "shasum": ""
             },
             "require": {
@@ -1061,7 +1061,7 @@
                 "testing",
                 "timing"
             ],
-            "time": "2016-04-17 18:46:54"
+            "time": "2016-04-18 21:43:34"
         },
         {
             "name": "nochso/html-compress-twig",
