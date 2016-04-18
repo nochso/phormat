@@ -236,6 +236,11 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		. '{' . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
+	public function pStmt_Trait(Stmt\Trait_ $node) {
+		return 'trait ' . $node->name
+			. " {" . $this->pStmts($node->stmts) . "\n" . '}';
+	}
+
 	public function pStmt_TraitUse(Stmt\TraitUse $node) {
 		$traits = rtrim($this->pCommaSeparatedLines($node->traits));
 		$use = 'use';
