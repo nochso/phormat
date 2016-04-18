@@ -27,6 +27,7 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
     - [Command line options](#command-line-options)
 - [Change log](#change-log)
     - [Unreleased](#unreleased)
+    - [0.1.1 - 2016-04-18](#011---2016-04-18)
     - [0.1.0 - 2016-04-16](#010---2016-04-16)
 - [License](#license)
 
@@ -113,6 +114,9 @@ releases.
 
 ## [Unreleased]
 
+
+## [0.1.1] - 2016-04-18
+
 ### Added
 - Command line option `--version` to display version information and quit.
 - Benchmark script comparing to php-cs-fixer and phpfmt.
@@ -126,13 +130,14 @@ releases.
 - Put braces on first line in traits.
 
 
-## 0.1.0 - 2016-04-16
+## [0.1.0] - 2016-04-16
 
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/phormat/compare/0.1.0...HEAD
-
+[Unreleased]: https://github.com/nochso/phormat/compare/0.1.1...HEAD
+[0.1.1]: https://github.com/nochso/phormat/compare/0.1.0...0.1.1
+[0.1.0]: https://github.com/nochso/phormat/compare/049e1ebafb5fb8de18ac9532bc20191cc7df79c3...0.1.0
 
 
 

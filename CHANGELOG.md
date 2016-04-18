@@ -12,6 +12,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.1.1] - 2016-04-18
 ### Added
 - Command line option `--version` to display version information and quit.
 - Benchmark script comparing to php-cs-fixer and phpfmt.
@@ -23,8 +25,10 @@ Security   to invite users to upgrade in case of vulnerabilities.
 - Stop putting property name on new line if it's a single property with wrappable assignment.
 - Put braces on first line in traits.
 
-## 0.1.0 - 2016-04-16
+## [0.1.0] - 2016-04-16
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/phormat/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/nochso/phormat/compare/0.1.1...HEAD
+[0.1.1]: https://github.com/nochso/phormat/compare/0.1.0...0.1.1
+[0.1.0]: https://github.com/nochso/phormat/compare/049e1ebafb5fb8de18ac9532bc20191cc7df79c3...0.1.0
