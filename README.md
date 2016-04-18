@@ -16,7 +16,7 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - Tabs for indentation.
 - Opening braces `{` on the same line: `) {`
 - No extra whitespacy lines in code or comments.
-- Fast.
+- Fast. Check out the [benchmarks](http://nochso.github.io/phormat/benchmark/).
 
 * * *
 
@@ -121,6 +121,7 @@ releases.
 ### Fixed
 - Removed const arrays for HHVM compatibility.
 - Do not indent single/double quoted strings.
+- Stop putting property name on new line if it's a single property with wrappable assignment.
 
 
 ## 0.1.0 - 2016-04-16

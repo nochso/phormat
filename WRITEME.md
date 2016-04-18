@@ -24,7 +24,7 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - Tabs for indentation.
 - Opening braces `{` on the same line: `) {`
 - No extra whitespacy lines in code or comments.
-- Fast.
+- Fast. Check out the [benchmarks](http://nochso.github.io/phormat/benchmark/).
 
 * * *
 
