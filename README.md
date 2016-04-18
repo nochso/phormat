@@ -25,7 +25,6 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - [Installation](#installation)
 - [Usage](#usage)
     - [Command line options](#command-line-options)
-    - [Limitations](#limitations)
 - [Change log](#change-log)
     - [Unreleased](#unreleased)
     - [0.1.0 - 2016-04-16](#010---2016-04-16)
@@ -108,20 +107,23 @@ OPTIONS
         Show this help.
 ```
 
-## Limitations
-Long lines with concatenation and ternary expressions are not wrapped at all.
-Any suggestions on how to do this would be welcome.
-
 # Change log
 See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between
 releases.
 
 ## [Unreleased]
 
+### Added
+- Command line option `--version` to display version information and quit.
+- Benchmark script comparing to php-cs-fixer and phpfmt.
+- Wrapping of long lines by `.` concatenation.
+
+
 ### Fixed
 - Removed const arrays for HHVM compatibility.
 - Do not indent single/double quoted strings.
 - Stop putting property name on new line if it's a single property with wrappable assignment.
+- Put braces on first line in traits.
 
 
 ## 0.1.0 - 2016-04-16
@@ -129,7 +131,7 @@ releases.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/nochso/phormat/compare/0.1.0...HEAD
 
 
 
