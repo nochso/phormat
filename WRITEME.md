@@ -107,10 +107,6 @@ OPTIONS
         Show this help.
 ```
 
-## Limitations
-Long lines with concatenation and ternary expressions are not wrapped at all.
-Any suggestions on how to do this would be welcome.
-
 # Change log
 See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between
 releases.
