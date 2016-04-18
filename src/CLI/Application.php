@@ -38,6 +38,9 @@ class Application {
 
 	public function run() {
 		$this->showVersion();
+		if ($this->opt->get('--version')) {
+			exit(Status::SUCCESS);
+		}
 		if ($this->opt->get('--help')) {
 			$this->showHelp();
 			return;
@@ -102,6 +105,7 @@ TAG
 			'p,print' => 'Print full output of formatted code. Implies --no-output.',
 			'n,no-output' => 'Do not overwrite source files.',
 			'h,help' => 'Show this help.',
+			'version' => 'Show version information.',
 			'#paths' => 'One or many paths to files or directories.',
 		];
 	}
