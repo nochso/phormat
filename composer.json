@@ -31,5 +31,7 @@
             "nochso\\Phormat\\Test\\": "test/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "bin": ["phormat"]
 }

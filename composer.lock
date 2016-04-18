@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f2c5216dc57e0d5c0027f88bf87af0d7",
-    "content-hash": "559fb8399290a5391cd4967b299ba566",
+    "hash": "ae1a6e2b4f325ae929a9b7235f0532b1",
+    "content-hash": "70a2f5f4493d5a761122a6d9b6073384",
     "packages": [
         {
             "name": "aura/cli",
@@ -178,12 +178,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "f8a40b3f2458c119274a09b147794efeba626a7e"
+                "reference": "e7869b9f1457e4756649bd40d7d5ce67883b7f9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/f8a40b3f2458c119274a09b147794efeba626a7e",
-                "reference": "f8a40b3f2458c119274a09b147794efeba626a7e",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/e7869b9f1457e4756649bd40d7d5ce67883b7f9b",
+                "reference": "e7869b9f1457e4756649bd40d7d5ce67883b7f9b",
                 "shasum": ""
             },
             "require": {
@@ -221,7 +221,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2016-04-15 13:07:30"
+            "time": "2016-04-18 11:59:18"
         },
         {
             "name": "nochso/diff",
@@ -293,16 +293,16 @@
         },
         {
             "name": "nochso/omni",
-            "version": "0.3.7",
+            "version": "0.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nochso/omni.git",
-                "reference": "837f9d0b502b10dc8d6312f0ccb1d505215c3a80"
+                "reference": "3c5b7c1af72592e37f820527edfce4a1e8d84640"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nochso/omni/zipball/837f9d0b502b10dc8d6312f0ccb1d505215c3a80",
-                "reference": "837f9d0b502b10dc8d6312f0ccb1d505215c3a80",
+                "url": "https://api.github.com/repos/nochso/omni/zipball/3c5b7c1af72592e37f820527edfce4a1e8d84640",
+                "reference": "3c5b7c1af72592e37f820527edfce4a1e8d84640",
                 "shasum": ""
             },
             "require": {
@@ -334,7 +334,7 @@
                 }
             ],
             "description": "Helps with every day nuisances like path or EOL handling.",
-            "time": "2016-04-16 11:18:20"
+            "time": "2016-04-17 06:52:57"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -557,19 +557,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/nochso/writeme.git",
-                "reference": "0b9b6ead2a35f3fea45ff0c474b066ab22fbf8c9"
+                "reference": "562119cc6fefca05f4be737fac6cdb64d80fc882"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nochso/writeme/zipball/0b9b6ead2a35f3fea45ff0c474b066ab22fbf8c9",
-                "reference": "0b9b6ead2a35f3fea45ff0c474b066ab22fbf8c9",
+                "url": "https://api.github.com/repos/nochso/writeme/zipball/562119cc6fefca05f4be737fac6cdb64d80fc882",
+                "reference": "562119cc6fefca05f4be737fac6cdb64d80fc882",
                 "shasum": ""
             },
             "require": {
                 "aura/cli": "^2.1",
                 "nette/finder": "^2.3",
-                "nochso/omni": "^0.3.0",
-                "roave/better-reflection": "^1.0",
+                "nochso/diff": "dev-master",
+                "nochso/omni": "^0.3.6",
+                "roave/better-reflection": "dev-master",
                 "symfony/yaml": "^3.0"
             },
             "require-dev": {
@@ -595,8 +596,18 @@
                     "email": "mv@noch.so"
                 }
             ],
-            "description": "Write me to read me.",
-            "time": "2016-03-11 20:56:36"
+            "description": "WRITEME to README: Maintain documentation using placeholders.",
+            "keywords": [
+                "TOC",
+                "api",
+                "documentation",
+                "frontmatter",
+                "markdown",
+                "readme",
+                "writeme",
+                "yaml"
+            ],
+            "time": "2016-04-16 21:01:21"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1184,16 +1195,16 @@
         },
         {
             "name": "roave/better-reflection",
-            "version": "1.0.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/BetterReflection.git",
-                "reference": "6adf80c4a53a61405ebef34db0322584b27e0699"
+                "reference": "3960830510f387ed86f684c301de0e98b871b4e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/6adf80c4a53a61405ebef34db0322584b27e0699",
-                "reference": "6adf80c4a53a61405ebef34db0322584b27e0699",
+                "url": "https://api.github.com/repos/Roave/BetterReflection/zipball/3960830510f387ed86f684c301de0e98b871b4e6",
+                "reference": "3960830510f387ed86f684c301de0e98b871b4e6",
                 "shasum": ""
             },
             "require": {
@@ -1205,8 +1216,8 @@
                 "zendframework/zend-code": "^3.0"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "^1.8",
-                "phpunit/phpunit": "^4.6"
+                "fabpot/php-cs-fixer": "^1.11",
+                "phpunit/phpunit": "^5.2"
             },
             "suggest": {
                 "composer/composer": "Required to use the ComposerSourceLocator"
@@ -1222,7 +1233,7 @@
                 "MIT"
             ],
             "description": "Better Reflection - an improved code reflection API",
-            "time": "2016-02-07 13:23:45"
+            "time": "2016-04-06 09:26:52"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -2002,13 +2013,13 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "nikic/php-parser": 20,
         "nochso/diff": 20,
         "nochso/writeme": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^5.6 || ^7.0"
