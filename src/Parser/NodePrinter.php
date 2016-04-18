@@ -133,6 +133,30 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		$this->orderElements = $orderElements;
 	}
 
+	public function pExpr_BinaryOp_Concat(Expr\BinaryOp\Concat $node) {
+		return $this->pInfixOp('Expr_BinaryOp_Concat', $node->left, ' . ', $node->right, true);
+	}
+
+	protected function pInfixOp($type, Node $leftNode, $operatorString, Node $rightNode, $wrap = false) {
+		list($precedence, $associativity) = $this->precedenceMap[$type];
+
+		$left = $this->pPrec($leftNode, $precedence, $associativity, -1);
+		$right = $this->pPrec($rightNode, $precedence, $associativity, 1);
+		if ($wrap) {
+			// Find position of last new line
+			$lastNewLine = strrpos($left, "\n");
+			// If no new line, consider start of string as one
+			if ($lastNewLine === false) {
+				$lastNewLine = 0;
+			}
+			// Is a newline needed after the last one?
+			if (strlen($left . $operatorString . $right) - $lastNewLine >= 80) {
+				return $left . "\n\t" . ltrim($operatorString) . $right;
+			}
+		}
+		return $left . $operatorString . $right;
+	}
+
 	protected function pComments(array $comments) {
 		$lines = Multiline::create(parent::pComments($comments));
 		// Trim trailing non-Markdown whitespace
