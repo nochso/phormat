@@ -12,10 +12,16 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Added
+- Command line option `--version` to display version information and quit.
+- Benchmark script comparing to php-cs-fixer and phpfmt.
+- Wrapping of long lines by `.` concatenation.
+
 ### Fixed
 - Removed const arrays for HHVM compatibility.
 - Do not indent single/double quoted strings.
 - Stop putting property name on new line if it's a single property with wrappable assignment.
+- Put braces on first line in traits.
 
 ## 0.1.0 - 2016-04-16
 ### Added
