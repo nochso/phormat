@@ -27,4 +27,4 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/omni/compare/0.1.0...HEAD
+[Unreleased]: https://github.com/nochso/phormat/compare/0.1.0...HEAD
