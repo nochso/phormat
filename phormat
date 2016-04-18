@@ -1,5 +1,8 @@
 #!/usr/bin/env php
 <?php
+use nochso\Omni;
+use nochso\Phormat\CLI\Application;
+
 set_error_handler(function ($severity, $message, $file, $line) {
 	if ($severity & error_reporting()) {
 		throw new ErrorException($message, 0, $severity, $file, $line);
@@ -12,5 +15,19 @@ if (file_exists($parent = __DIR__ . '/../../autoload.php')) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
-$a = new \nochso\Phormat\CLI\Application(new \nochso\Omni\VcsVersionInfo('phormat', '0.1.0', __DIR__));
+function getVersion() {
+	if (Omni\Strings::startsWith(__DIR__, 'phar://')) {
+		return new Omni\VersionInfo('phormat', '@git_version@', Omni\VersionInfo::INFO_FORMAT_SHORT);
+	}
+	$composer = Omni\Path::combine(__DIR__ . 'composer.json');
+	$fallback = '0.1.0';
+	if (is_file($composer)) {
+		$composerJson = json_decode(file_get_contents($composer), true);
+		if ($composerJson['name'] === 'nochso/phormat') {
+			return new Omni\VcsVersionInfo('phormat', $fallback, __DIR__);
+		}
+	}
+	return new Omni\VersionInfo('phormat', $fallback);
+}
+$a = new Application(getVersion());
 $a->run();
