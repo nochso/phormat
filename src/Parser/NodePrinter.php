@@ -20,13 +20,13 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 
 	private $orderElements = false;
 	/**
-	 * @var \nochso\Phormat\Parser\NodeCompare
+	 * @var \nochso\Phormat\Parser\NodeSorter
 	 */
 	private $comparer;
 
 	public function __construct(array $options = []) {
 		$options['shortArraySyntax'] = true;
-		$this->comparer = new NodeCompare();
+		$this->comparer = new NodeSorter();
 		parent::__construct($options);
 	}
 
@@ -224,7 +224,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 	 */
 	protected function pStmts(array $nodes, $indent = true) {
 		if ($this->orderElements) {
-			$this->comparer->sortNodes($nodes);
+			$this->comparer->sort($nodes);
 		}
 		$result = '';
 		$prevContext = null;

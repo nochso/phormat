@@ -7,16 +7,14 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Property;
 
-class NodeCompare {
+class NodeSorter {
 	private $types = [ClassConst::class => 1, Property::class => 2, ClassMethod::class => 3];
 
 	/**
 	 * @param \PhpParser\Node[] $nodes
 	 */
-	public function sortNodes(array &$nodes) {
-		self::stableUsort($nodes, function (Node $a, Node $b) {
-				return self::compareNode($a, $b);
-			});
+	public function sort(array &$nodes) {
+		$this->stableUsort($nodes, [$this, 'compareNode']);
 	}
 
 	protected function compareNode(Node $a, Node $b) {
