@@ -12,6 +12,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Changed
+- Made `--help` output less `man`ish and more colorful.
 
 ## [0.1.1] - 2016-04-18
 ### Added

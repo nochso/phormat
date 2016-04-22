@@ -3,7 +3,6 @@ namespace nochso\Phormat\CLI;
 
 use Aura\Cli\CliFactory;
 use Aura\Cli\Context\OptionFactory;
-use Aura\Cli\Help;
 use Aura\Cli\Status;
 use Aura\Cli\Stdio;
 use Aura\Cli\Stdio\Formatter;
@@ -117,5 +116,6 @@ TAG
 			$this->version->getVersion()
 		);
 		$this->stdio->outln($out);
+		$this->stdio->outln();
 	}
 }
