@@ -21,6 +21,7 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 * * *
 
 - [nochso/phormat](#nochsophormat)
+- [Introduction, goals and scope](#introduction-goals-and-scope)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -30,6 +31,32 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
     - [0.1.1 - 2016-04-18](#011---2016-04-18)
     - [0.1.0 - 2016-04-16](#010---2016-04-16)
 - [License](#license)
+
+# Introduction, goals and scope
+
+Phormat is a pretty printer based on [nikic/php-parser](https://github.com/nikic/PHP-Parser).
+It **discards** any formatting and prints source code in a **uniform** style. Custom
+formatting options are out of scope.
+
+The chosen style is personal preference and attempts to keep the line count low
+while keeping the code readable.
+
+> You're anti-PSR! Why do you hate FIG?
+
+I'm not. I don't. This is **not a replacement, improvement or critique of PSR2**
+but merely an alternative you're free to ignore.
+
+PSR2 is quite widespread for a reason and has helped lots of projects decide on a common
+style. However it does not mean everybody loves it personally or that it is a
+de-facto standard you must adhere to. The questions of *tabs vs. spaces* or *placement of braces*
+will always be part of a holy war as it comes down to personal preference.
+
+In the end, it's **best for collaboration** if a project has a **well defined**
+style that is easy for contributors to adhere to. Which is easily possible for
+both PSR2 and phormat.
+
+See [php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) for a great
+way to adhere to PSR2.
 
 # Requirements
 This project is written for and tested with PHP 5.6, 7.0 and HHVM.
@@ -106,6 +133,9 @@ OPTIONS
     -h
     --help
         Show this help.
+
+    --version
+        Show version information.
 ```
 
 # Change log
@@ -113,6 +143,9 @@ See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between
 releases.
 
 ## [Unreleased]
+
+### Changed
+- Made `--help` output less `man`ish and more colorful.
 
 
 ## [0.1.1] - 2016-04-18
