@@ -30,7 +30,7 @@ class FixtureIterator implements \Iterator{
 	}
 
 	public function key() {
-		return key($this->files);
+		return basename(current($this->files));
 	}
 
 	public function next() {
