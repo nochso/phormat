@@ -233,8 +233,14 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			} elseif (in_array($newContext, self::$separateIdenticalTypes)) {
 				$result .= "\n";
 			}
+			$comments = $node->getAttribute('comments', array());
+            if ($comments) {
+                $result .= "\n" . $this->pComments($comments);
+                if ($node instanceof Stmt\Nop) {
+                    continue;
+                }
+            }
 			$result .= "\n"
-				. $this->pComments($node->getAttribute('comments', array()))
 				. $this->p($node)
 				. ($node instanceof Node\Expr ? ';' : '');
 		}
