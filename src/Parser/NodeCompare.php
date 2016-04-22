@@ -8,29 +8,29 @@ use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\Property;
 
 class NodeCompare {
-	private static $types = [ClassConst::class => 1, Property::class => 2, ClassMethod::class => 3];
+	private $types = [ClassConst::class => 1, Property::class => 2, ClassMethod::class => 3];
 
 	/**
 	 * @param \PhpParser\Node[] $nodes
 	 */
-	public static function sortNodes(array &$nodes) {
+	public function sortNodes(array &$nodes) {
 		self::stableUsort($nodes, function (Node $a, Node $b) {
 				return self::compareNode($a, $b);
 			});
 	}
 
-	protected static function compareNode(Node $a, Node $b) {
+	protected function compareNode(Node $a, Node $b) {
 		// Keep unknown types as they are
 		$aClass = get_class($a);
-		if (!isset(self::$types[$aClass])) {
+		if (!isset($this->types[$aClass])) {
 			return 0;
 		}
 		$bClass = get_class($b);
-		if (!isset(self::$types[$bClass])) {
+		if (!isset($this->types[$bClass])) {
 			return 0;
 		}
 		// Sort by type
-		$cmp = strcmp(self::$types[$aClass], self::$types[$bClass]);
+		$cmp = strcmp($this->types[$aClass], $this->types[$bClass]);
 		if ($cmp === 0) {
 			// Sort within type
 			$cmp = self::compareClassNodeOfEqualType($a, $b);
@@ -38,7 +38,7 @@ class NodeCompare {
 		return $cmp;
 	}
 
-	protected static function compareClassNodeOfEqualType(Node $a, Node $b) {
+	protected function compareClassNodeOfEqualType(Node $a, Node $b) {
 		$cmp = 0;
 		// Do not sort within constants
 		if ($a instanceof ClassConst) {
@@ -61,27 +61,27 @@ class NodeCompare {
 		return $cmp;
 	}
 
-	protected static function compareVisibility(Node $a, Node $b) {
+	protected function compareVisibility(Node $a, Node $b) {
 		$visibility = function (Node $n) {
 			return $n->isPublic() ? 0 : ($n->isProtected() ? 1 : 2);
 		};
 		return strcmp($visibility($a), $visibility($b));
 	}
 
-	protected static function compareModifier(Node $a, Node $b) {
-		// Within same visibility, static goes first
+	protected function compareModifier(Node $a, Node $b) {
+		// Within same visibility, goes first
 		$cmp = strcmp($b->isStatic(), $a->isStatic());
 		if ($cmp !== 0) {
 			return $cmp;
 		}
-		// Within same visibility and staticness, abstract goes first
+		// Within same visibility and ess, abstract goes first
 		if ($a instanceof ClassMethod) {
 			$cmp = strcmp($b->isAbstract(), $a->isAbstract());
 		}
 		return $cmp;
 	}
 
-	protected static function stableUsort(array &$array, $compareFunction) {
+	protected function stableUsort(array &$array, $compareFunction) {
 		$index = 0;
 		foreach ($array as &$item) {
 			$item = [$index++, $item];
@@ -99,7 +99,7 @@ class NodeCompare {
 		return $result;
 	}
 
-	protected static function compareClassMethodName(ClassMethod $a, ClassMethod $b) {
+	protected function compareClassMethodName(ClassMethod $a, ClassMethod $b) {
 		$aIsMagic = Strings::startsWith($a->name, '__');
 		$bIsMagic = Strings::startsWith($b->name, '__');
 		// __magic goes first
