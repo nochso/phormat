@@ -98,40 +98,34 @@ like `if (true): .. endif;`
 
 ## Command line options
 ```
-USAGE
+Usage
     phormat [options] <path>
     phormat [options] <path1> <path2> ...
 
-DESCRIPTION
+Description
     By default PHP files from the specified paths will be overwritten.
 
-ARGUMENTS
+Arguments
     <paths>
         One or many paths to files or directories.
 
-OPTIONS
-    -d
-    --diff
+Options
+    -d, --diff
         Preview diff of formatted code. Implies --no-output.
 
-    -s
-    --summary
+    -s, --summary
         Show a status summary for each file.
 
-    -o
-    --order
+    -o, --order
         Change order of class elements.
 
-    -p
-    --print
+    -p, --print
         Print full output of formatted code. Implies --no-output.
 
-    -n
-    --no-output
+    -n, --no-output
         Do not overwrite source files.
 
-    -h
-    --help
+    -h, --help
         Show this help.
 
     --version
