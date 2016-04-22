@@ -20,6 +20,10 @@ class Formatter {
 	 * @var \PhpParser\Parser
 	 */
 	private $parser;
+	/**
+	 * @var \nochso\Phormat\Parser\NodePrinter
+	 */
+	private $printer;
 
 	public function __construct() {
 		$this->printer = new NodePrinter();
