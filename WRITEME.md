@@ -130,6 +130,11 @@ Options
         Show version information.
 ```
 
+# Contributing
+Feedback, bug reports and pull requests are always welcome.
+
+Please read the [contributing guide](CONTRIBUTING.md) for instructions.
+
 # Change log
 See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between
 releases.

@@ -26,6 +26,7 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - [Installation](#installation)
 - [Usage](#usage)
     - [Command line options](#command-line-options)
+- [Contributing](#contributing)
 - [Change log](#change-log)
     - [Unreleased](#unreleased)
     - [0.1.1 - 2016-04-18](#011---2016-04-18)
@@ -131,6 +132,11 @@ Options
     --version
         Show version information.
 ```
+
+# Contributing
+Feedback, bug reports and pull requests are always welcome.
+
+Please read the [contributing guide](CONTRIBUTING.md) for instructions.
 
 # Change log
 See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between
