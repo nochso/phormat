@@ -9,6 +9,14 @@ use PhpParser\Node\Stmt\Property;
 
 class NodeSorter {
 	private $types = [ClassConst::class => 1, Property::class => 2, ClassMethod::class => 3];
+	private $accessorPrefixes = ['has', 'is', 'get', 'set', 'add', 'remove', 'enable', 'disable'];
+
+	/**
+	 * @return string[]
+	 */
+	public function getAccessorPrefixes() {
+		return $this->accessorPrefixes;
+	}
 
 	/**
 	 * @param \PhpParser\Node[] $nodes
@@ -105,8 +113,7 @@ class NodeSorter {
 			return strcmp($bIsMagic, $aIsMagic);
 		}
 		// Check for accessors
-		$accessorPrefixes = ['has', 'is', 'get', 'set', 'add', 'remove', 'enable', 'disable'];
-		$regex = '/^(' . implode('|', $accessorPrefixes) . ')(([A-Z].*)?)$/';
+		$regex = '/^(' . implode('|', $this->accessorPrefixes) . ')(([A-Z].*)?)$/';
 		$aAccessor = preg_match($regex, $a->name, $aMatches);
 		$bAccessor = preg_match($regex, $b->name, $bMatches);
 		$cmp = strcmp($bAccessor, $aAccessor);
@@ -120,8 +127,8 @@ class NodeSorter {
 			return $cmp;
 		}
 		// Accessors with identical suffix. Sort by accessor prefix priority
-		$aPrio = array_search($aMatches[1], $accessorPrefixes, true);
-		$bPrio = array_search($bMatches[1], $accessorPrefixes, true);
+		$aPrio = array_search($aMatches[1], $this->accessorPrefixes, true);
+		$bPrio = array_search($bMatches[1], $this->accessorPrefixes, true);
 		return strcmp($aPrio, $bPrio);
 	}
 }
