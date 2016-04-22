@@ -146,6 +146,7 @@ releases.
 
 ### Changed
 - Made `--help` output less `man`ish and more colorful.
+- Bump `nikic/php-parser` to 2.1.0
 
 
 ## [0.1.1] - 2016-04-18
