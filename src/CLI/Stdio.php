@@ -25,6 +25,7 @@ class Stdio extends \Aura\Cli\Stdio {
 	}
 
 	public function paint($input, $format) {
+		$input = str_replace('<<reset>>', '<<reset>><<' . $format . '>>', $input);
 		return sprintf('<<%s>>%s<<reset>>', $format, $input);
 	}
 }
