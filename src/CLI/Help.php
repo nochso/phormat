@@ -17,6 +17,8 @@ class Help extends \Aura\Cli\Help {
 		$help = preg_replace_callback($subjectpattern, $subjectPainter, $help);
 		// Make options yellow
 		$help = preg_replace("/ (-[a-z],?(?! )|--[a-z][a-z-]+)/", ' <<yellow>>\1<<reset>>', $help);
+		$help = preg_replace("/(?<!<)<([^<> ]+)>(?!>)/", '<<yellow>><\1><<reset>>', $help);
+		$help = preg_replace("/\\[([^\\[\\] ]+)\\]/", '<<yellow>>[\1]<<reset>>', $help);
 		return $help;
 	}
 
