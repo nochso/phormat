@@ -138,7 +138,8 @@ class FormatJob {
 			return;
 		}
 		$count = count($this->files);
-		$formatCount = str_pad(number_format($key + 1), strlen(number_format($count)), ' ', STR_PAD_LEFT) . '/' . number_format($count);
+		$formatCount = str_pad(number_format($key + 1), strlen(number_format($count)), ' ', STR_PAD_LEFT)
+			. '/' . number_format($count);
 		$bar = '';
 		$sumChars = 0;
 		foreach ($this->progressStatusMap as $status => $statusCount) {

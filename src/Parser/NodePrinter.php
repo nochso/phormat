@@ -16,7 +16,6 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		Stmt\Use_::class,
 	];
 	private $separateIdenticalTypes = [Stmt\ClassMethod::class, Stmt\Function_::class];
-
 	private $orderElements = false;
 	/**
 	 * @var \nochso\Phormat\Parser\NodeSorter
@@ -52,55 +51,50 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 
 	public function pStmt_Function(Stmt\Function_ $node) {
 		return 'function ' . ($node->byRef ? '&' : '') . $node->name
-		. $this->pCommaSeparatedLines($node->params, '(', ')')
-		. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
-		. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
+			. $this->pCommaSeparatedLines($node->params, '(', ')')
+			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
+			. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
 	public function pStmt_Namespace(Stmt\Namespace_ $node) {
 		if ($this->canUseSemicolonNamespaces) {
-			return 'namespace ' . $this->p($node->name) . ';' . "\n" . $this->pStmts($node->stmts, false);
+			return 'namespace ' . $this->p($node->name) . ';' . "\n"
+				. $this->pStmts($node->stmts, false);
 		} else {
-			return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '')
-			. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
+			return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '') . ' {'
+				. $this->pStmts($node->stmts) . "\n" . '}';
 		}
 	}
 
 	public function pStmt_ClassMethod(Stmt\ClassMethod $node) {
-		return $this->pModifiers($node->type)
-		. 'function ' . ($node->byRef ? '&' : '') . $node->name
-		. $this->pCommaSeparatedLines($node->params, '(', ')')
-		. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
-		. (null !== $node->stmts
-			? ' {' . $this->pStmts($node->stmts) . "\n" . '}'
-			: ';');
+		return $this->pModifiers($node->type) . 'function ' . ($node->byRef ? '&' : '')
+			. $node->name . $this->pCommaSeparatedLines($node->params, '(', ')')
+			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
+			. (null !== $node->stmts ? ' {' . $this->pStmts($node->stmts) . "\n" . '}' : ';');
 	}
 
 	public function pExpr_FuncCall(Expr\FuncCall $node) {
-		return $this->pCallLhs($node->name) . $this->pCommaSeparatedLines($node->args, '(', ')');
+		return $this->pCallLhs($node->name)
+			. $this->pCommaSeparatedLines($node->args, '(', ')');
 	}
 
 	public function pExpr_MethodCall(Expr\MethodCall $node) {
-		return $this->pDereferenceLhs($node->var) . '->' . $this->pObjectProperty($node->name) . $this->pCommaSeparatedLines($node->args, '(', ')');
+		return $this->pDereferenceLhs($node->var) . '->' . $this->pObjectProperty($node->name)
+			. $this->pCommaSeparatedLines($node->args, '(', ')');
 	}
 
 	public function pExpr_StaticCall(Expr\StaticCall $node) {
 		return $this->pDereferenceLhs($node->class) . '::'
-		. ($node->name instanceof Expr
-			? ($node->name instanceof Expr\Variable
-				? $this->p($node->name)
-				: '{' . $this->p($node->name) . '}')
-			: $node->name)
-		. $this->pCommaSeparatedLines($node->args, '(', ')');
+			. ($node->name instanceof Expr ? $node->name instanceof Expr\Variable ? $this->p($node->name) : '{' . $this->p($node->name) . '}' : $node->name)
+			. $this->pCommaSeparatedLines($node->args, '(', ')');
 	}
 
 	public function pExpr_Closure(Expr\Closure $node) {
-		return ($node->static ? 'static ' : '')
-		. 'function ' . ($node->byRef ? '&' : '')
-		. $this->pCommaSeparatedLines($node->params, '(', ')')
-		. (!empty($node->uses) ? ' use ' . $this->pCommaSeparatedLines($node->uses, '(', ')') : '')
-		. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
-		. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
+		return ($node->static ? 'static ' : '') . 'function ' . ($node->byRef ? '&' : '')
+			. $this->pCommaSeparatedLines($node->params, '(', ')')
+			. (!empty($node->uses) ? ' use ' . $this->pCommaSeparatedLines($node->uses, '(', ')') : '')
+			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
+			. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
 	public function pExpr_Array(Node\Expr\Array_ $node) {
@@ -112,7 +106,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			$args = $node->args ? '(' . $this->pCommaSeparatedLines($node->args) . ')' : '';
 			return 'new ' . $this->pClassCommon($node->class, $args);
 		}
-		$result = 'new ' . $this->p($node->class) . $this->pCommaSeparatedLines($node->args, '(', ')');
+		$result = 'new ' . $this->p($node->class)
+			. $this->pCommaSeparatedLines($node->args, '(', ')');
 		return $result;
 	}
 
@@ -143,7 +138,6 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 
 	protected function pInfixOp($type, Node $leftNode, $operatorString, Node $rightNode, $wrap = false) {
 		list($precedence, $associativity) = $this->precedenceMap[$type];
-
 		$left = $this->pPrec($leftNode, $precedence, $associativity, -1);
 		$right = $this->pPrec($rightNode, $precedence, $associativity, 1);
 		if ($wrap) {
@@ -210,7 +204,9 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		if (strlen($arr) > 80) {
 			$arr = "\n" . $this->pImplode($nodes, ",\n") . ($trailingComma ? ',' : '') . "\n";
 		}
-		return $prefix . preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $arr) . $suffix;
+		return $prefix
+			. preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $arr)
+			. $suffix;
 	}
 
 	/**
@@ -231,24 +227,21 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			$newContext = get_class($node);
 			if ($prevContext !== $newContext) {
 				if ($prevContext !== null && (in_array($prevContext, $this->separateTypes) || in_array($newContext, $this->separateTypes))) {
-					$result.="\n";
+					$result .= "\n";
 				}
 				$prevContext = $newContext;
 			} elseif (in_array($newContext, $this->separateIdenticalTypes)) {
 				$result .= "\n";
 			}
-			$comments = $node->getAttribute('comments', array());
-            if ($comments) {
-                $result .= "\n" . $this->pComments($comments);
-                if ($node instanceof Stmt\Nop) {
-                    continue;
-                }
-            }
-			$result .= "\n"
-				. $this->p($node)
-				. ($node instanceof Node\Expr ? ';' : '');
+			$comments = $node->getAttribute('comments', []);
+			if ($comments) {
+				$result .= "\n" . $this->pComments($comments);
+				if ($node instanceof Stmt\Nop) {
+					continue;
+				}
+			}
+			$result .= "\n" . $this->p($node) . ($node instanceof Node\Expr ? ';' : '');
 		}
-
 		if ($indent) {
 			return preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $result);
 		} else {
@@ -268,13 +261,12 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 
 	public function pStmt_Interface(Stmt\Interface_ $node) {
 		return 'interface ' . $node->name
-		. (!empty($node->extends) ? ' extends ' . $this->pCommaSeparatedLines($node->extends) : ' ')
-		. '{' . $this->pStmts($node->stmts) . "\n" . '}';
+			. (!empty($node->extends) ? ' extends ' . $this->pCommaSeparatedLines($node->extends) : ' ')
+			. '{' . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
 	public function pStmt_Trait(Stmt\Trait_ $node) {
-		return 'trait ' . $node->name
-			. " {" . $this->pStmts($node->stmts) . "\n" . '}';
+		return 'trait ' . $node->name . " {" . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
 	public function pStmt_TraitUse(Stmt\TraitUse $node) {
@@ -284,17 +276,19 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			$use .= ' ';
 		}
 		return $use . $traits
-		. (empty($node->adaptations)
-			? ';'
-			: ' {' . preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $this->pStmts($node->adaptations) . "\n" . '}'));
+			. (empty($node->adaptations) ? ';' : ' {'
+				. preg_replace(
+					'~\n(?!$|\n|' . $this->noIndentToken . ')~',
+					"\n\t",
+					$this->pStmts($node->adaptations) . "\n" . '}'
+				));
 	}
 
 	protected function pClassCommon(Node\Stmt\Class_ $node, $afterClassToken) {
-		return $this->pModifiers($node->type)
-		. 'class' . $afterClassToken
-		. (null !== $node->extends ? ' extends ' . $this->p($node->extends) : '')
-		. (!empty($node->implements) ? ' implements ' . $this->pCommaSeparatedLines($node->implements) : ' ')
-		. '{' . $this->pStmts($node->stmts) . "\n" . '}';
+		return $this->pModifiers($node->type) . 'class' . $afterClassToken
+			. (null !== $node->extends ? ' extends ' . $this->p($node->extends) : '')
+			. (!empty($node->implements) ? ' implements ' . $this->pCommaSeparatedLines($node->implements) : ' ')
+			. '{' . $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
 	public function pScalar_String(Node\Scalar\String_ $node) {
