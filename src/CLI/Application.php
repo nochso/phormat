@@ -17,7 +17,7 @@ class Application {
 	 */
 	private $context;
 	/**
-	 * @var \Aura\Cli\Stdio
+	 * @var \nochso\Phormat\CLI\Stdio
 	 */
 	private $stdio;
 	/**
@@ -29,7 +29,7 @@ class Application {
 		$this->version = $version;
 		$cliFactory = new CliFactory();
 		$this->context = $cliFactory->newContext($GLOBALS);
-		$this->stdio = new Stdio(
+		$this->stdio = new \nochso\Phormat\CLI\Stdio(
 			new Handle('php://stdin', 'r'),
 			new Handle('php://stdout', 'w+'),
 			new Handle('php://stderr', 'w+'),
@@ -78,7 +78,7 @@ class Application {
 			$this->showHelp();
 			/** @var \Exception $error */
 			foreach ($errors as $error) {
-				$this->stdio->errln('<<red>>' . $error->getMessage() . '<<reset>>');
+				$this->stdio->error($error->getMessage());
 			}
 			exit(Status::USAGE);
 		}
@@ -160,19 +160,19 @@ __* > ' . $accessorPrefixes . '* > *',
 		$updater->setStrategyObject($strategy);
 		try {
 			if ($updater->update()) {
-				$this->stdio->outln(
+				$this->stdio->success(
 					sprintf(
-						'<<green>>Successfully updated phormat from %s to %s.<<reset>>',
+						'Successfully updated phormat from %s to %s.',
 						$updater->getOldVersion(),
 						$updater->getNewVersion()
 					)
 				);
 				exit(Status::SUCCESS);
 			}
-			$this->stdio->outln('<<yellow>>There is no update available.<<reset>>');
+			$this->stdio->neutral('There is no update available.');
 			exit(Status::SUCCESS);
 		} catch (\Exception $e) {
-			$this->stdio->outln(sprintf("<<red>>Self-update failed:\n%s<<reset>>", $e->getMessage()));
+			$this->stdio->error(sprintf("Self-update failed:\n%s<<reset>>", $e->getMessage()));
 		}
 	}
 }

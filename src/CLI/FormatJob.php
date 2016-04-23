@@ -1,7 +1,6 @@
 <?php
 namespace nochso\Phormat\CLI;
 
-use Aura\Cli\Stdio;
 use Nette\Utils\Finder;
 use nochso\Diff;
 use nochso\Diff\Format\Template;
@@ -23,7 +22,7 @@ class FormatJob {
 	private $errors = [];
 	private $progressStatusMap = [];
 	/**
-	 * @var \Aura\Cli\Stdio
+	 * @var \nochso\Phormat\CLI\Stdio
 	 */
 	private $stdio;
 
@@ -225,9 +224,9 @@ class FormatJob {
 			}
 			$duration .= round(($microseconds - (int) $microseconds) * 1000) . 'ms';
 		}
-		$this->stdio->outln(
+		$this->stdio->success(
 			sprintf(
-				'<<green>>Formatted %d file%s in %s.<<reset>>',
+				'Formatted %d file%s in %s.',
 				$changedCount,
 				Quantity::format('(s)', $changedCount),
 				$duration
