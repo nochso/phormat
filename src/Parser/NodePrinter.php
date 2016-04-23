@@ -231,7 +231,6 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			$this->comparer->sort($nodes);
 		}
 		$this->useSorter->sort($nodes);
-
 		$result = '';
 		$prevContext = null;
 		/** @var Node $prevNode */

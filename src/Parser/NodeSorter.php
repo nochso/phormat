@@ -3,8 +3,8 @@ namespace nochso\Phormat\Parser;
 
 use nochso\Omni\Strings;
 use PhpParser\Node;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\ClassConst;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 
 class NodeSorter {
