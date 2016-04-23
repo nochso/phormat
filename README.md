@@ -29,8 +29,8 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - [Contributing](#contributing)
 - [Change log](#change-log)
     - [Unreleased](#unreleased)
+    - [0.1.3](#013)
     - [0.1.2](#012)
-    - [0.1.1 - 2016-04-18](#011---2016-04-18)
 - [License](#license)
 
 # Introduction, goals and scope
@@ -145,6 +145,12 @@ releases.
 ## [Unreleased]
 
 
+## [0.1.3]
+
+### Fixed
+- Make `padraic/phar-updater` a normal requirement instead of dev-only.
+
+
 ## [0.1.2]
 
 ### Added
@@ -158,21 +164,6 @@ releases.
 
 ### Fixed
 - Same line comments stay on same line.
-
-
-## [0.1.1] - 2016-04-18
-
-### Added
-- Command line option `--version` to display version information and quit.
-- Benchmark script comparing to php-cs-fixer and phpfmt.
-- Wrapping of long lines by `.` concatenation.
-
-
-### Fixed
-- Removed const arrays for HHVM compatibility.
-- Do not indent single/double quoted strings.
-- Stop putting property name on new line if it's a single property with wrappable assignment.
-- Put braces on first line in traits.
 
 
 
