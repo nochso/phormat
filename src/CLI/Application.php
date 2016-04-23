@@ -45,7 +45,7 @@ class Application {
 		}
 		if ($this->opt->get('--help')) {
 			$this->showHelp();
-			return;
+			exit(Status::SUCCESS);
 		}
 		if ($this->opt->get('--self-update')) {
 			$this->selfUpdate();
