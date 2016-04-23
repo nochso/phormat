@@ -148,6 +148,10 @@ releases.
 
 ## [Unreleased]
 
+### Added
+- Added option `--self-update` for updating the PHAR to the latest release.
+
+
 ### Changed
 - Made `--help` output less `man`ish and more colorful.
 - Bump `nikic/php-parser` to 2.1.0

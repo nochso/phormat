@@ -6,6 +6,8 @@ use Aura\Cli\Context\OptionFactory;
 use Aura\Cli\Status;
 use Aura\Cli\Stdio;
 use Aura\Cli\Stdio\Formatter;
+use Humbug\SelfUpdate\Strategy\GithubStrategy;
+use Humbug\SelfUpdate\Updater;
 use nochso\Omni\VersionInfo;
 use nochso\Phormat\Parser\NodeSorter;
 
@@ -44,6 +46,10 @@ class Application {
 		if ($this->opt->get('--help')) {
 			$this->showHelp();
 			return;
+		}
+		if ($this->opt->get('--self-update')) {
+			$this->selfUpdate();
+			exit(Status::SUCCESS);
 		}
 		$errors = $this->opt->getErrors();
 		$paths = array_filter(
@@ -111,6 +117,7 @@ __* > ' . $accessorPrefixes . '* > *',
 			'n,no-output' => 'Do not overwrite source files.',
 			'h,help' => 'Show this help.',
 			'version' => 'Show version information.',
+			'self-update' => 'Update phormat to the lateste version.',
 			'#paths' => 'One or many paths to files or directories.',
 		];
 	}
@@ -123,5 +130,37 @@ __* > ' . $accessorPrefixes . '* > *',
 		);
 		$this->stdio->outln($out);
 		$this->stdio->outln();
+	}
+
+	private function selfUpdate() {
+		$phar = \Phar::running(false);
+		if ($phar === '') {
+			$this->stdio->errln(
+				'<<red>>Self-updating only works when running the PHAR version of phormat.<<reset>>'
+			);
+			exit(Status::UNAVAILABLE);
+		}
+		$updater = new Updater($phar);
+		$strategy = new GithubStrategy();
+		$strategy->setPackageName('nochso/phormat');
+		$strategy->setPharName('phormat.phar');
+		$strategy->setCurrentLocalVersion($this->version->getVersion());
+		$updater->setStrategyObject($strategy);
+		try {
+			if ($updater->update()) {
+				$this->stdio->outln(
+					sprintf(
+						'<<green>>Successfully updated phormat from %s to %s.<<reset>>',
+						$updater->getOldVersion(),
+						$updater->getNewVersion()
+					)
+				);
+				exit(Status::SUCCESS);
+			}
+			$this->stdio->outln('<<yellow>>There is no update available.<<reset>>');
+			exit(Status::SUCCESS);
+		} catch (\Exception $e) {
+			$this->stdio->outln(sprintf("<<red>>Self-update failed:\n%s<<reset>>", $e->getMessage()));
+		}
 	}
 }
