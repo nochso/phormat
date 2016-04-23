@@ -29,6 +29,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 	 */
 	private $useSorter;
 	private $indentation = "\t";
+	private $softLimit = 80;
+	private $softLimitInfix = 100;
 
 	public function __construct(array $options = []) {
 		$options['shortArraySyntax'] = true;
@@ -145,19 +147,27 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		return $this->pInfixOp('Expr_BinaryOp_Concat', $node->left, ' . ', $node->right, true);
 	}
 
+	public function pExpr_BinaryOp_BooleanAnd(Expr\BinaryOp\BooleanAnd $node) {
+        return $this->pInfixOp('Expr_BinaryOp_BooleanAnd', $node->left, ' && ', $node->right, true);
+    }
+
+    public function pExpr_BinaryOp_BooleanOr(Expr\BinaryOp\BooleanOr $node) {
+        return $this->pInfixOp('Expr_BinaryOp_BooleanOr', $node->left, ' || ', $node->right, true);
+    }
+
 	protected function pInfixOp($type, Node $leftNode, $operatorString, Node $rightNode, $wrap = false) {
 		list($precedence, $associativity) = $this->precedenceMap[$type];
 		$left = $this->pPrec($leftNode, $precedence, $associativity, -1);
 		$right = $this->pPrec($rightNode, $precedence, $associativity, 1);
 		if ($wrap) {
 			// Find position of last new line
-			$lastNewLine = strrpos($left, "\n");
+			$lastNewLine = strrpos(trim($left), "\n");
 			// If no new line, consider start of string as one
 			if ($lastNewLine === false) {
 				$lastNewLine = 0;
 			}
 			// Is a newline needed after the last one?
-			if (strlen($left . $operatorString . $right) - $lastNewLine >= 80) {
+			if (strlen($left . $operatorString . $right) - $lastNewLine >= $this->softLimitInfix) {
 				$out = "\n" . ltrim($operatorString) . $right;
 				$out = preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n" . $this->indentation, $out);
 				return $left . $out;
@@ -210,7 +220,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 
 	protected function pCommaSeparatedLines(array $nodes, $prefix = '', $suffix = '', $trailingComma = false) {
 		$arr = parent::pCommaSeparated($nodes);
-		if (strlen($arr) > 80) {
+		if ($this->needsWrapping($arr)) {
 			$arr = "\n" . $this->pImplode($nodes, ",\n") . ($trailingComma ? ',' : '') . "\n";
 		}
 		return $prefix
@@ -352,5 +362,15 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			}
 		}
 		return 0;
+	}
+
+	/**
+	 * @param string$input
+	 *
+	 * @return bool
+	 */
+	protected function needsWrapping($input) {
+		$trimInput = trim($input);
+		return mb_strlen($trimInput) >= $this->softLimit;
 	}
 }
