@@ -12,6 +12,9 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Added
+- Show warnings when xdebug or xdebug-profiling is enabled.
+
 ### Changed
 - Put closing parenthesis of multiple lines on a new line.
 - Use statements are always sorted.
