@@ -2,6 +2,7 @@
 namespace nochso\Phormat\Parser;
 
 use nochso\Omni\Multiline;
+use nochso\Omni\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
@@ -252,7 +253,15 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 				}
 			}
 			$prevNode = $node;
-			$result .= "\n" . $this->p($node) . ($node instanceof Node\Expr ? ';' : '');
+			$nodeCode = $this->p($node);
+			if (strpos($nodeCode, "\n") !== false) {
+				if (Strings::endsWith($nodeCode, '))')) {
+					$nodeCode = substr($nodeCode, 0, -2) . ")\n\t)";
+				} elseif (Strings::endsWith($nodeCode, '));')) {
+					$nodeCode = substr($nodeCode, 0, -3) . ")\n\t);";
+				}
+			}
+			$result .= "\n" . $nodeCode . ($node instanceof Node\Expr ? ';' : '');
 		}
 		if ($indent) {
 			return preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n" . $this->indentation, $result);
