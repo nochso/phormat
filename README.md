@@ -146,6 +146,9 @@ releases.
 
 ## [Unreleased]
 
+### Changed
+- Improved line wrapping: Use a soft limit of 100 characters for lines made of `.`, `||` and `&&`.
+
 
 ## [0.1.5] - 2016-04-23
 
