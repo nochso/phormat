@@ -12,6 +12,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.1.4] - 2016-04-23
 ### Added
 - Show warnings when xdebug or xdebug-profiling is enabled.
 
@@ -21,11 +23,11 @@ Security   to invite users to upgrade in case of vulnerabilities.
 - Separate classes, interfaces and traits.
 - Keep use and group-use statements together.
 
-## [0.1.3]
+## [0.1.3] - 2016-04-23
 ### Fixed
 - Make `padraic/phar-updater` a normal requirement instead of dev-only.
 
-## [0.1.2]
+## [0.1.2] - 2016-04-23
 ### Added
 - Added option `--self-update` for updating the PHAR to the latest release.
 
@@ -52,7 +54,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/phormat/compare/0.1.3...HEAD
+[Unreleased]: https://github.com/nochso/phormat/compare/0.1.4...HEAD
+[0.1.4]: https://github.com/nochso/phormat/compare/0.1.3...0.1.4
 [0.1.3]: https://github.com/nochso/phormat/compare/0.1.2...0.1.3
 [0.1.2]: https://github.com/nochso/phormat/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/nochso/phormat/compare/0.1.0...0.1.1

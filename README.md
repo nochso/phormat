@@ -31,8 +31,8 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - [Contributing](#contributing)
 - [Change log](#change-log)
     - [Unreleased](#unreleased)
-    - [0.1.3](#013)
-    - [0.1.2](#012)
+    - [0.1.4 - 2016-04-23](#014---2016-04-23)
+    - [0.1.3 - 2016-04-23](#013---2016-04-23)
 - [License](#license)
 
 # Introduction, goals and scope
@@ -146,6 +146,9 @@ releases.
 
 ## [Unreleased]
 
+
+## [0.1.4] - 2016-04-23
+
 ### Added
 - Show warnings when xdebug or xdebug-profiling is enabled.
 
@@ -157,25 +160,10 @@ releases.
 - Keep use and group-use statements together.
 
 
-## [0.1.3]
+## [0.1.3] - 2016-04-23
 
 ### Fixed
 - Make `padraic/phar-updater` a normal requirement instead of dev-only.
-
-
-## [0.1.2]
-
-### Added
-- Added option `--self-update` for updating the PHAR to the latest release.
-
-
-### Changed
-- Made `--help` output less `man`ish and more colorful.
-- Bump `nikic/php-parser` to 2.1.0
-
-
-### Fixed
-- Same line comments stay on same line.
 
 
 

@@ -20,7 +20,7 @@ function getVersion() {
 		return new Omni\VersionInfo('phormat', '@git_version@', Omni\VersionInfo::INFO_FORMAT_SHORT);
 	}
 	$composer = Omni\Path::combine(__DIR__ . 'composer.json');
-	$fallback = '0.1.3';
+	$fallback = '0.1.4';
 	if (is_file($composer)) {
 		$composerJson = json_decode(file_get_contents($composer), true);
 		if ($composerJson['name'] === 'nochso/phormat') {
