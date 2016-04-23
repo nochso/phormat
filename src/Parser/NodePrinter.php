@@ -14,9 +14,11 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		Stmt\Property::class,
 		Stmt\ClassMethod::class,
 		Stmt\Function_::class,
-		Stmt\Use_::class,
+		Stmt\Class_::class,
+		Stmt\Trait_::class,
+		Stmt\Interface_::class,
 	];
-	private $separateIdenticalTypes = [Stmt\ClassMethod::class, Stmt\Function_::class];
+	private $separateIdenticalTypes = [Stmt\ClassMethod::class, Stmt\Function_::class, Stmt\Class_::class];
 	private $orderElements = false;
 	/**
 	 * @var \nochso\Phormat\Parser\NodeSorter
