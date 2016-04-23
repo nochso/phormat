@@ -10,6 +10,14 @@ use PhpParser\Node\Stmt\Property;
 class NodeSorter {
 	private $types = [ClassConst::class => 1, Property::class => 2, ClassMethod::class => 3];
 	private $accessorPrefixes = ['has', 'is', 'get', 'set', 'add', 'remove', 'enable', 'disable'];
+	/**
+	 * @var \nochso\Phormat\Parser\StableSorter
+	 */
+	private $stableSort;
+
+	public function __construct() {
+		$this->stableSort = new StableSorter();
+	}
 
 	/**
 	 * @return string[]
@@ -22,10 +30,10 @@ class NodeSorter {
 	 * @param \PhpParser\Node[] $nodes
 	 */
 	public function sort(array &$nodes) {
-		$this->stableUsort($nodes, [$this, 'compareNode']);
+		$this->stableSort->sort($nodes, [$this, 'compareNode']);
 	}
 
-	protected function compareNode(Node $a, Node $b) {
+	public function compareNode(Node $a, Node $b) {
 		// Keep unknown types as they are
 		$aClass = get_class($a);
 		if (!isset($this->types[$aClass])) {
@@ -85,24 +93,6 @@ class NodeSorter {
 			$cmp = strcmp($b->isAbstract(), $a->isAbstract());
 		}
 		return $cmp;
-	}
-
-	protected function stableUsort(array &$array, $compareFunction) {
-		$index = 0;
-		foreach ($array as &$item) {
-			$item = [$index++, $item];
-		}
-		$result = usort(
-			$array,
-			function ($a, $b) use ($compareFunction) {
-				$result = call_user_func($compareFunction, $a[1], $b[1]);
-				return $result == 0 ? $a[0] - $b[0] : $result;
-			}
-		);
-		foreach ($array as &$item) {
-			$item = $item[1];
-		}
-		return $result;
 	}
 
 	protected function compareClassMethodName(ClassMethod $a, ClassMethod $b) {
