@@ -16,6 +16,8 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - Tabs for indentation.
 - Opening braces `{` on the same line: `) {`
 - No extra whitespacy lines in code or comments.
+- Use statements are always sorted.
+- Optional re-arranging of class level elements.
 - Fast. Check out the [benchmarks](http://nochso.github.io/phormat/benchmark/).
 
 * * *
@@ -146,6 +148,9 @@ releases.
 
 ### Changed
 - Put closing parenthesis of multiple lines on a new line.
+- Use statements are always sorted.
+- Separate classes, interfaces and traits.
+- Keep use and group-use statements together.
 
 
 ## [0.1.3]

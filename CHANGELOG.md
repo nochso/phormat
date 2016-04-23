@@ -14,6 +14,9 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ## [Unreleased]
 ### Changed
 - Put closing parenthesis of multiple lines on a new line.
+- Use statements are always sorted.
+- Separate classes, interfaces and traits.
+- Keep use and group-use statements together.
 
 ## [0.1.3]
 ### Fixed
