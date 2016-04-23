@@ -153,6 +153,10 @@ releases.
 - Bump `nikic/php-parser` to 2.1.0
 
 
+### Fixed
+- Same line comments stay on same line.
+
+
 ## [0.1.1] - 2016-04-18
 
 ### Added

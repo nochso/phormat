@@ -224,6 +224,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		}
 		$result = '';
 		$prevContext = null;
+		/** @var Node $prevNode */
+		$prevNode = null;
 		foreach ($nodes as $node) {
 			$newContext = get_class($node);
 			if ($prevContext !== $newContext) {
@@ -234,13 +236,22 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			} elseif (in_array($newContext, $this->separateIdenticalTypes)) {
 				$result .= "\n";
 			}
+			/** @var \PhpParser\Comment[] $comments */
 			$comments = $node->getAttribute('comments', []);
 			if ($comments) {
-				$result .= "\n" . $this->pComments($comments);
+				// Keep comments on the same line.
+				if ($prevNode !== null && $comments[0]->getLine() === $prevNode->getAttribute('endLine')) {
+					$result .= ' ';
+				} else {
+					$result .= "\n";
+				}
+				$result .= $this->pComments($comments);
 				if ($node instanceof Stmt\Nop) {
+					$prevNode = $node;
 					continue;
 				}
 			}
+			$prevNode = $node;
 			$result .= "\n" . $this->p($node) . ($node instanceof Node\Expr ? ';' : '');
 		}
 		if ($indent) {
