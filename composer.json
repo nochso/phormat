@@ -34,5 +34,15 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "bin": ["phormat"]
+    "bin": ["phormat"],
+    "scripts": {
+        "box": [
+            "composer install --no-dev -o",
+            "box build -v"
+        ],
+        "box-install": [
+            "@box",
+            "sudo cp phormat.phar /usr/local/bin/phormat"
+        ]
+    }
 }
