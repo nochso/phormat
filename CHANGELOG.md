@@ -12,6 +12,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+### Changed
+- Put closing parenthesis of multiple lines on a new line.
 
 ## [0.1.3]
 ### Fixed
