@@ -96,13 +96,6 @@ like `if (true): .. endif;`
 
 ## Command line options
 ```
-Usage
-    phormat [options] <path>
-    phormat [options] <path1> <path2> ...
-
-Description
-    By default PHP files from the specified paths will be overwritten.
-
 Arguments
     <paths>
         One or many paths to files or directories.
@@ -134,7 +127,7 @@ Options
         Show version information.
 
     --self-update
-        Update phormat to the lateste version.
+        Update phormat to the latest version.
 ```
 
 # Contributing

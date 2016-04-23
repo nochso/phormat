@@ -117,7 +117,7 @@ __* > ' . $accessorPrefixes . '* > *',
 			'n,no-output' => 'Do not overwrite source files.',
 			'h,help' => 'Show this help.',
 			'version' => 'Show version information.',
-			'self-update' => 'Update phormat to the lateste version.',
+			'self-update' => 'Update phormat to the latest version.',
 			'#paths' => 'One or many paths to files or directories.',
 		];
 	}
