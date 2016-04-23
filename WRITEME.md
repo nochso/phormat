@@ -119,7 +119,7 @@ Options
         constants > properties > methods
         static > abstract > *
         public > protected > private
-        __* > has* > is* > get* > set* > ... > *
+        __* > has* > is* > get* > set* > add* > remove* > enable* > disable* > *
 
     -p, --print
         Print full output of formatted code. Implies --no-output.
@@ -132,6 +132,9 @@ Options
 
     --version
         Show version information.
+
+    --self-update
+        Update phormat to the lateste version.
 ```
 
 # Contributing

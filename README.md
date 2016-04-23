@@ -29,8 +29,8 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - [Contributing](#contributing)
 - [Change log](#change-log)
     - [Unreleased](#unreleased)
+    - [0.1.2](#012)
     - [0.1.1 - 2016-04-18](#011---2016-04-18)
-    - [0.1.0 - 2016-04-16](#010---2016-04-16)
 - [License](#license)
 
 # Introduction, goals and scope
@@ -122,7 +122,7 @@ Options
         constants > properties > methods
         static > abstract > *
         public > protected > private
-        __* > has* > is* > get* > set* > ... > *
+        __* > has* > is* > get* > set* > add* > remove* > enable* > disable* > *
 
     -p, --print
         Print full output of formatted code. Implies --no-output.
@@ -135,6 +135,9 @@ Options
 
     --version
         Show version information.
+
+    --self-update
+        Update phormat to the lateste version.
 ```
 
 # Contributing
@@ -147,6 +150,9 @@ See [CHANGELOG.md](CHANGELOG.md) for the full history of changes between
 releases.
 
 ## [Unreleased]
+
+
+## [0.1.2]
 
 ### Added
 - Added option `--self-update` for updating the PHAR to the latest release.
@@ -175,15 +181,6 @@ releases.
 - Stop putting property name on new line if it's a single property with wrappable assignment.
 - Put braces on first line in traits.
 
-
-## [0.1.0] - 2016-04-16
-
-### Added
-- First public release.
-
-[Unreleased]: https://github.com/nochso/phormat/compare/0.1.1...HEAD
-[0.1.1]: https://github.com/nochso/phormat/compare/0.1.0...0.1.1
-[0.1.0]: https://github.com/nochso/phormat/compare/049e1ebafb5fb8de18ac9532bc20191cc7df79c3...0.1.0
 
 
 

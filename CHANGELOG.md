@@ -12,6 +12,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 -->
 
 ## [Unreleased]
+
+## [0.1.2]
 ### Added
 - Added option `--self-update` for updating the PHAR to the latest release.
 
@@ -38,6 +40,7 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/phormat/compare/0.1.1...HEAD
+[Unreleased]: https://github.com/nochso/phormat/compare/0.1.2...HEAD
+[0.1.2]: https://github.com/nochso/phormat/compare/0.1.1...0.1.2
 [0.1.1]: https://github.com/nochso/phormat/compare/0.1.0...0.1.1
 [0.1.0]: https://github.com/nochso/phormat/compare/049e1ebafb5fb8de18ac9532bc20191cc7df79c3...0.1.0
