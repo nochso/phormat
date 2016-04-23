@@ -2,7 +2,6 @@
 namespace nochso\Phormat\Parser;
 
 use nochso\Omni\Multiline;
-use nochso\Omni\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
