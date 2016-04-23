@@ -45,6 +45,7 @@ $closure = function (
 		);
 	};
 };
+
 class X extends Y implements 
 	LongInterfaceName1,
 	LongInterfaceName2,
@@ -69,6 +70,7 @@ class X extends Y implements
 	) {
 	}
 }
+
 class Y {
 	use
 		SomeLongTraitName1,
@@ -89,6 +91,7 @@ class Y {
 		$somePrivatePropertiesOnTheSameLine2,
 		$somePrivatePropertiesOnTheSameLine3;
 }
+
 interface IX extends 
 	LongInterfaceName1,
 	LongInterfaceName2,
