@@ -11,3 +11,7 @@ return $use . $traits
 			"\n" . $this->indentation,
 			$this->pStmts($node->adaptations) . "\n" . '}'
 		));
+if ($variable == '394i 309483094' || $variable === '394i30948349083498 n' && $variable !== 'okfkddfoksd fopdsk' && true && 1 && 2) {
+}
+if ($variable == '394i 309483094' && $variable === '394i30948349083498 n' || $variable !== 'okfkddfoksd fopdsk' || true || 1 || 2) {
+}
