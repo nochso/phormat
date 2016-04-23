@@ -7,7 +7,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
 
 class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
-	private static $separateTypes = [
+	private $separateTypes = [
 		Node\Const_::class,
 		Stmt\ClassConst::class,
 		Stmt\Property::class,
@@ -15,7 +15,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		Stmt\Function_::class,
 		Stmt\Use_::class,
 	];
-	private static $separateIdenticalTypes = [Stmt\ClassMethod::class, Stmt\Function_::class];
+	private $separateIdenticalTypes = [Stmt\ClassMethod::class, Stmt\Function_::class];
 
 	private $orderElements = false;
 	/**
@@ -230,11 +230,11 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		foreach ($nodes as $node) {
 			$newContext = get_class($node);
 			if ($prevContext !== $newContext) {
-				if ($prevContext !== null && (in_array($prevContext, self::$separateTypes) || in_array($newContext, self::$separateTypes))) {
+				if ($prevContext !== null && (in_array($prevContext, $this->separateTypes) || in_array($newContext, $this->separateTypes))) {
 					$result.="\n";
 				}
 				$prevContext = $newContext;
-			} elseif (in_array($newContext, self::$separateIdenticalTypes)) {
+			} elseif (in_array($newContext, $this->separateIdenticalTypes)) {
 				$result .= "\n";
 			}
 			$comments = $node->getAttribute('comments', array());
