@@ -51,6 +51,7 @@ class Application {
 			$this->selfUpdate();
 			exit(Status::SUCCESS);
 		}
+		$this->warnXdebug();
 		$errors = $this->opt->getErrors();
 		$paths = array_filter(
 			$this->opt->get(),
@@ -174,5 +175,14 @@ __* > ' . $accessorPrefixes . '* > *',
 		} catch (\Exception $e) {
 			$this->stdio->error(sprintf("Self-update failed:\n%s<<reset>>", $e->getMessage()));
 		}
+	}
+
+	private function warnXdebug() {
+		if (ini_get('xdebug.profiler_enabled')) {
+			$this->stdio->warn("xdebug and its profiler is enabled. Formatting will be a lot slower.");
+		} elseif (extension_loaded('xdebug')) {
+			$this->stdio->warn("xdebug is enabled. Formatting would be faster with xdebug disabled.");
+		}
+		$this->stdio->outln();
 	}
 }
