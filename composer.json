@@ -15,13 +15,13 @@
         "nikic/php-parser": "^2.1.0",
         "nette/finder": "^2.3",
         "nochso/diff": "dev-master",
-        "nochso/omni": "^0.3.7"
+        "nochso/omni": "^0.3.7",
+        "padraic/phar-updater": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.2",
         "nochso/writeme": "dev-master",
-        "nochso/benchmark": "^0.5.3",
-        "padraic/phar-updater": "^1.0"
+        "nochso/benchmark": "^0.5.3"
     },
     "autoload": {
         "psr-4": {
