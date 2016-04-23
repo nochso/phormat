@@ -21,6 +21,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 	 * @var \nochso\Phormat\Parser\NodeSorter
 	 */
 	private $comparer;
+	private $indentation = "\t";
 
 	public function __construct(array $options = []) {
 		$options['shortArraySyntax'] = true;
@@ -150,7 +151,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			// Is a newline needed after the last one?
 			if (strlen($left . $operatorString . $right) - $lastNewLine >= 80) {
 				$out = "\n" . ltrim($operatorString) . $right;
-				$out = preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $out);
+				$out = preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n" . $this->indentation, $out);
 				return $left . $out;
 			}
 		}
@@ -205,7 +206,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			$arr = "\n" . $this->pImplode($nodes, ",\n") . ($trailingComma ? ',' : '') . "\n";
 		}
 		return $prefix
-			. preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $arr)
+			. preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n" . $this->indentation, $arr)
 			. $suffix;
 	}
 
@@ -243,7 +244,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			$result .= "\n" . $this->p($node) . ($node instanceof Node\Expr ? ';' : '');
 		}
 		if ($indent) {
-			return preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n\t", $result);
+			return preg_replace('~\n(?!$|\n|' . $this->noIndentToken . ')~', "\n" . $this->indentation, $result);
 		} else {
 			return $result;
 		}
@@ -279,7 +280,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			. (empty($node->adaptations) ? ';' : ' {'
 				. preg_replace(
 					'~\n(?!$|\n|' . $this->noIndentToken . ')~',
-					"\n\t",
+					"\n" . $this->indentation,
 					$this->pStmts($node->adaptations) . "\n" . '}'
 				));
 	}
