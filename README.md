@@ -118,7 +118,11 @@ Options
         Show a status summary for each file.
 
     -o, --order
-        Change order of class elements.
+        Change order of class elements:
+        constants > properties > methods
+        static > abstract > *
+        public > protected > private
+        __* > has* > is* > get* > set* > ... > *
 
     -p, --print
         Print full output of formatted code. Implies --no-output.

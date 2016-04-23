@@ -7,6 +7,7 @@ use Aura\Cli\Status;
 use Aura\Cli\Stdio;
 use Aura\Cli\Stdio\Formatter;
 use nochso\Omni\VersionInfo;
+use nochso\Phormat\Parser\NodeSorter;
 
 class Application {
 	/**
@@ -97,10 +98,15 @@ TAG
 	}
 
 	private function getOptions() {
+		$accessorPrefixes = implode('* > ', (new NodeSorter())->getAccessorPrefixes());
 		return [
 			'd,diff' => 'Preview diff of formatted code. Implies --no-output.',
 			's,summary' => "Show a status summary for each file.",
-			'o,order' => 'Change order of class elements.',
+			'o,order' => 'Change order of class elements:
+constants > properties > methods
+static > abstract > *
+public > protected > private
+__* > ' . $accessorPrefixes . '* > *',
 			'p,print' => 'Print full output of formatted code. Implies --no-output.',
 			'n,no-output' => 'Do not overwrite source files.',
 			'h,help' => 'Show this help.',
