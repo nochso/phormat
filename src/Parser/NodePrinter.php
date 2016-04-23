@@ -63,14 +63,13 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 	public function pStmt_Function(Stmt\Function_ $node) {
 		return 'function ' . ($node->byRef ? '&' : '') . $node->name
 			. $this->pCommaSeparatedLines($node->params, '(', ')')
-			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
-			. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
+			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '') . ' {'
+			. $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
 	public function pStmt_Namespace(Stmt\Namespace_ $node) {
 		if ($this->canUseSemicolonNamespaces) {
-			return 'namespace ' . $this->p($node->name) . ';' . "\n"
-				. $this->pStmts($node->stmts, false);
+			return 'namespace ' . $this->p($node->name) . ';' . "\n" . $this->pStmts($node->stmts, false);
 		} else {
 			return 'namespace' . (null !== $node->name ? ' ' . $this->p($node->name) : '') . ' {'
 				. $this->pStmts($node->stmts) . "\n" . '}';
@@ -78,15 +77,14 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 	}
 
 	public function pStmt_ClassMethod(Stmt\ClassMethod $node) {
-		return $this->pModifiers($node->type) . 'function ' . ($node->byRef ? '&' : '')
-			. $node->name . $this->pCommaSeparatedLines($node->params, '(', ')')
+		return $this->pModifiers($node->type) . 'function ' . ($node->byRef ? '&' : '') . $node->name
+			. $this->pCommaSeparatedLines($node->params, '(', ')')
 			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
 			. (null !== $node->stmts ? ' {' . $this->pStmts($node->stmts) . "\n" . '}' : ';');
 	}
 
 	public function pExpr_FuncCall(Expr\FuncCall $node) {
-		return $this->pCallLhs($node->name)
-			. $this->pCommaSeparatedLines($node->args, '(', ')');
+		return $this->pCallLhs($node->name) . $this->pCommaSeparatedLines($node->args, '(', ')');
 	}
 
 	public function pExpr_MethodCall(Expr\MethodCall $node) {
@@ -104,8 +102,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		return ($node->static ? 'static ' : '') . 'function ' . ($node->byRef ? '&' : '')
 			. $this->pCommaSeparatedLines($node->params, '(', ')')
 			. (!empty($node->uses) ? ' use ' . $this->pCommaSeparatedLines($node->uses, '(', ')') : '')
-			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '')
-			. ' {' . $this->pStmts($node->stmts) . "\n" . '}';
+			. (null !== $node->returnType ? ' : ' . $this->pType($node->returnType) : '') . ' {'
+			. $this->pStmts($node->stmts) . "\n" . '}';
 	}
 
 	public function pExpr_Array(Node\Expr\Array_ $node) {
@@ -117,8 +115,7 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 			$args = $node->args ? '(' . $this->pCommaSeparatedLines($node->args) . ')' : '';
 			return 'new ' . $this->pClassCommon($node->class, $args);
 		}
-		$result = 'new ' . $this->p($node->class)
-			. $this->pCommaSeparatedLines($node->args, '(', ')');
+		$result = 'new ' . $this->p($node->class) . $this->pCommaSeparatedLines($node->args, '(', ')');
 		return $result;
 	}
 
@@ -148,12 +145,12 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 	}
 
 	public function pExpr_BinaryOp_BooleanAnd(Expr\BinaryOp\BooleanAnd $node) {
-        return $this->pInfixOp('Expr_BinaryOp_BooleanAnd', $node->left, ' && ', $node->right, true);
-    }
+		return $this->pInfixOp('Expr_BinaryOp_BooleanAnd', $node->left, ' && ', $node->right, true);
+	}
 
-    public function pExpr_BinaryOp_BooleanOr(Expr\BinaryOp\BooleanOr $node) {
-        return $this->pInfixOp('Expr_BinaryOp_BooleanOr', $node->left, ' || ', $node->right, true);
-    }
+	public function pExpr_BinaryOp_BooleanOr(Expr\BinaryOp\BooleanOr $node) {
+		return $this->pInfixOp('Expr_BinaryOp_BooleanOr', $node->left, ' || ', $node->right, true);
+	}
 
 	protected function pInfixOp($type, Node $leftNode, $operatorString, Node $rightNode, $wrap = false) {
 		list($precedence, $associativity) = $this->precedenceMap[$type];
@@ -248,7 +245,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 		foreach ($nodes as $node) {
 			$newContext = get_class($node);
 			if ($prevContext !== $newContext) {
-				if ($prevContext !== null && (in_array($prevContext, $this->separateTypes) || in_array($newContext, $this->separateTypes))) {
+				if ($prevContext !== null
+					&& (in_array($prevContext, $this->separateTypes) || in_array($newContext, $this->separateTypes))) {
 					$result .= "\n";
 				}
 				$prevContext = $newContext;

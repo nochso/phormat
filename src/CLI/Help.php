@@ -34,11 +34,9 @@ class Help extends \Aura\Cli\Help {
 			// it's an argument
 			return '';
 		}
-		$text = '    '
-			. $this->getHelpOptionParam($option->name, $option->param, $option->multi);
+		$text = '    ' . $this->getHelpOptionParam($option->name, $option->param, $option->multi);
 		if ($option->alias) {
-			$text .= ', '
-				. $this->getHelpOptionParam($option->alias, $option->param, $option->multi);
+			$text .= ', ' . $this->getHelpOptionParam($option->alias, $option->param, $option->multi);
 		}
 		$text .= PHP_EOL;
 		if (!$option->descr) {
