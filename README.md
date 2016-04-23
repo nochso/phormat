@@ -144,6 +144,9 @@ releases.
 
 ## [Unreleased]
 
+### Changed
+- Put closing parenthesis of multiple lines on a new line.
+
 
 ## [0.1.3]
 
