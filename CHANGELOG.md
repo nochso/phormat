@@ -13,6 +13,10 @@ Security   to invite users to upgrade in case of vulnerabilities.
 
 ## [Unreleased]
 
+## [0.1.5] - 2016-04-23
+### Changed
+- Allow self-update without public key.
+
 ## [0.1.4] - 2016-04-23
 ### Added
 - Show warnings when xdebug or xdebug-profiling is enabled.
@@ -54,7 +58,8 @@ Security   to invite users to upgrade in case of vulnerabilities.
 ### Added
 - First public release.
 
-[Unreleased]: https://github.com/nochso/phormat/compare/0.1.4...HEAD
+[Unreleased]: https://github.com/nochso/phormat/compare/0.1.5...HEAD
+[0.1.5]: https://github.com/nochso/phormat/compare/0.1.4...0.1.5
 [0.1.4]: https://github.com/nochso/phormat/compare/0.1.3...0.1.4
 [0.1.3]: https://github.com/nochso/phormat/compare/0.1.2...0.1.3
 [0.1.2]: https://github.com/nochso/phormat/compare/0.1.1...0.1.2

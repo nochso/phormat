@@ -31,8 +31,8 @@ Differences to other [fixers](https://github.com/FriendsOfPHP/PHP-CS-Fixer) or
 - [Contributing](#contributing)
 - [Change log](#change-log)
     - [Unreleased](#unreleased)
+    - [0.1.5 - 2016-04-23](#015---2016-04-23)
     - [0.1.4 - 2016-04-23](#014---2016-04-23)
-    - [0.1.3 - 2016-04-23](#013---2016-04-23)
 - [License](#license)
 
 # Introduction, goals and scope
@@ -147,6 +147,12 @@ releases.
 ## [Unreleased]
 
 
+## [0.1.5] - 2016-04-23
+
+### Changed
+- Allow self-update without public key.
+
+
 ## [0.1.4] - 2016-04-23
 
 ### Added
@@ -158,12 +164,6 @@ releases.
 - Use statements are always sorted.
 - Separate classes, interfaces and traits.
 - Keep use and group-use statements together.
-
-
-## [0.1.3] - 2016-04-23
-
-### Fixed
-- Make `padraic/phar-updater` a normal requirement instead of dev-only.
 
 
 

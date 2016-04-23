@@ -153,7 +153,7 @@ __* > ' . $accessorPrefixes . '* > *',
 			);
 			exit(Status::UNAVAILABLE);
 		}
-		$updater = new Updater($phar);
+		$updater = new Updater($phar, null);
 		$strategy = new GithubStrategy();
 		$strategy->setPackageName('nochso/phormat');
 		$strategy->setPharName('phormat.phar');
