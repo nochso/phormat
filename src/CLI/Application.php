@@ -59,6 +59,18 @@ class Application {
 			},
 			ARRAY_FILTER_USE_KEY
 		);
+		$job = $this->prepareJob($paths, $errors);
+		$job->run();
+		exit(Status::SUCCESS);
+	}
+
+	/**
+	 * @param $paths
+	 * @param $errors
+	 *
+	 * @return \nochso\Phormat\CLI\FormatJob
+	 */
+	private function prepareJob($paths, $errors) {
 		$job = new FormatJob($this->stdio);
 		$job->addPaths($paths);
 		$errors = array_merge($errors, $job->getErrors());
@@ -84,9 +96,9 @@ class Application {
 		}
 		if ($this->opt->get('--order')) {
 			$job->enableOrder();
+			return $job;
 		}
-		$job->run();
-		exit(Status::SUCCESS);
+		return $job;
 	}
 
 	private function showHelp() {
