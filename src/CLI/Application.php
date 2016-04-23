@@ -163,7 +163,7 @@ __* > ' . $accessorPrefixes . '* > *',
 			if ($updater->update()) {
 				$this->stdio->success(
 					sprintf(
-						'Successfully updated phormat from %s to %s.',
+						'Successfully updated phormat from <<yellow>>%s<<reset>> to <<yellow>>%s<<reset>>.',
 						$updater->getOldVersion(),
 						$updater->getNewVersion()
 					)
