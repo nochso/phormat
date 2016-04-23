@@ -302,7 +302,8 @@ class NodePrinter extends \PhpParser\PrettyPrinter\Standard {
 					'~\n(?!$|\n|' . $this->noIndentToken . ')~',
 					"\n" . $this->indentation,
 					$this->pStmts($node->adaptations) . "\n" . '}'
-				));
+				)
+			);
 	}
 
 	protected function pClassCommon(Node\Stmt\Class_ $node, $afterClassToken) {
