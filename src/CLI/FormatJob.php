@@ -75,7 +75,6 @@ class FormatJob {
 	public function run() {
 		$this->progressStatusMap = array_fill_keys(array_keys(FormatJobFile::STATUS_STYLES), 0);
 		$startTime = microtime(true);
-		$this->stdio->outln();
 		$formatter = new Formatter();
 		$formatter->setOrderClassElements($this->order);
 		foreach ($this->files as $key => $file) {
