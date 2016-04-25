@@ -104,6 +104,7 @@ class Application {
 
 	private function showHelp() {
 		$help = new Help(new OptionFactory());
+		$help->setTerminalWidth($this->stdio->getTerminalWidth());
 		$help->setOptions($this->getOptions());
 		$help->setSummary('Format PHP source code by a single convention.');
 		$help->setUsage(['[options] <path>', '[options] <path1> <path2> ...']);
